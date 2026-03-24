@@ -1,0 +1,3710 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <!-- Meta tags for social media banners, these should be filled in appropriatly as they are your "business card" -->
+  <!-- Replace the content tag with appropriate information -->
+  <meta name="description" content="DESCRIPTION META TAG">
+  <meta property="og:title" content="AV-CASS Demo Page"/>
+  <meta property="og:description" content="Demo page for AV-CASS (submitted to 2026 AAAI)"/>
+  <meta property="og:url" content="cass-flowmatching.github.io"/>
+  <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X630-->
+  <meta property="og:image" content="static/image/aaai_cass_task.png" />
+  <meta property="og:image:width" content="1200"/>
+  <meta property="og:image:height" content="630"/>
+
+
+  <meta name="twitter:title" content="TWITTER BANNER TITLE META TAG">
+  <meta name="twitter:description" content="TWITTER BANNER DESCRIPTION META TAG">
+  <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X600-->
+  <meta name="twitter:image" content="static/images/aaai_cass_task.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <!-- Keywords for your paper to be indexed by-->
+  <meta name="keywords" content="Audio-visual source separation, Cinematic audio source separation, Flow-matching models">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+  <title>Cinematic Audio Source Separation Using Visual Cues</title>
+  <link rel="icon" type="image/x-icon" href="static/images/favicon.ico">
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+  rel="stylesheet">
+
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script src="static/js/bulma-carousel.min.js"></script>
+  <script src="static/js/bulma-slider.min.js"></script>
+  <script src="static/js/index.js"></script>
+</head>
+<body>
+
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title">Cinematic Audio Source Separation<br>Using Visual Cues</h1>
+            <div class="is-size-5 publication-authors">
+              <!-- Paper authors -->
+              <span class="author-block">
+                <a target="_blank">Anonymous Authors</a></span>
+              <!-- <span class="author-block">
+                <a href="FIRST AUTHOR PERSONAL LINK" target="_blank">First Author</a><sup>*</sup>,</span>
+                <span class="author-block">
+                  <a href="SECOND AUTHOR PERSONAL LINK" target="_blank">Second Author</a><sup>*</sup>,</span>
+                  <span class="author-block">
+                    <a href="THIRD AUTHOR PERSONAL LINK" target="_blank">Third Author</a>
+                  </span> -->
+                  </div>
+
+                  <div class="is-size-5 publication-authors">
+                    <span class="author-block">Anonymous Submission CVPR 2026</span>
+                    <!-- <span class="eql-cntrb"><small><br><sup>*</sup>Indicates Equal Contribution</small></span> -->
+                  </div>
+
+                  <div class="column has-text-centered">
+                    <div class="publication-links">
+                         <!-- Arxiv PDF link -->
+                      <!-- <span class="link-block">
+                        <a href="https://arxiv.org/pdf/<ARXIV PAPER ID>.pdf" target="_blank"
+                        class="external-link button is-normal is-rounded is-dark">
+                        <span class="icon">
+                          <i class="fas fa-file-pdf"></i>
+                        </span>
+                        <span>Paper</span>
+                      </a>
+                    </span> -->
+
+                    <!-- Supplementary PDF link -->
+                    <!-- <span class="link-block">
+                      <a href="static/pdfs/supplementary_material.pdf" target="_blank"
+                      class="external-link button is-normal is-rounded is-dark">
+                      <span class="icon">
+                        <i class="fas fa-file-pdf"></i>
+                      </span>
+                      <span>Supplementary</span>
+                    </a>
+                  </span> -->
+
+                  <!-- Github link -->
+                  <!-- <span class="link-block">
+                    <a href="https://github.com/YOUR REPO HERE" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <span>Code</span>
+                    </a>
+                  </span> -->
+
+                <!-- ArXiv abstract Link -->
+                <!-- <span class="link-block">
+                  <a href="https://arxiv.org/abs/<ARXIV PAPER ID>" target="_blank"
+                  class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Paper abstract -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Cinematic Audio Source Separation (CASS) aims to decompose mixed film audio into speech, music, and sound effects, supporting applications like dubbing and remastering. Existing CASS approaches are audio-only, overlooking the inherently audio-visual nature of film, where sounds often align with visual cues. We present the first framework for audio-visual CASS (AV-CASS), leveraging visual context to enhance separation. Our method formulates CASS as a conditional generative modeling problem using conditional flow matching, enabling multimodal audio source separation. To address the lack of paired cinematic datasets with isolated sound sources, we introduce a training data synthesis pipeline that pairs in-the-wild audio and video streams (e.g., facial videos for speech, scene videos for effects) and develop a dedicated visual encoder for this dual-stream setup. Trained on synthetic data, our model generalizes effectively to real-world cinematic content and achieves strong performance on synthetic, real-world, and audio-only CASS benchmarks.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End paper abstract -->
+
+<!-- <div class="has-text-centered mt-5">
+  <a href="all_videos.html" class="button is-link is-medium">
+    🎬 View All Videos
+  </a>
+</div> -->
+<!-- Separation Results -->
+<section class="section hero">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Separation Results (AVSS Models)</h2>
+
+    <div class="content has-text-justified">
+      <h3 class="title is-5">Loading Notice</h3>
+
+      <div class="notification is-warning">
+        ⚠️ <strong>Please click the video to load and play.</strong>  
+        The video length shows as "0:00" because the video is not loaded yet (preload is off). This does NOT mean the video is broken or missing.
+      </div>
+    </div>
+
+<!-- 
+    <div class="box">
+      <h3 class="title is-5">MADAGASCAR | Official Trailer (2010)</h3>
+      <div class="mb-4">
+        <strong>Input Video</strong><br>
+        <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/fq5zU9T_Hl4_start_29.jpg">
+          <source src="static/cvpr_videos/original/videos/fq5zU9T_Hl4_start_29.mp4" type="video/mp4">
+        </video>
+        
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/fq5zU9T_Hl4_start_29.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/fq5zU9T_Hl4_start_29/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/fq5zU9T_Hl4_start_29.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/fq5zU9T_Hl4_start_29/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/fq5zU9T_Hl4_start_29.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/fq5zU9T_Hl4_start_29/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>DAVIS - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/fq5zU9T_Hl4_start_29.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/fq5zU9T_Hl4_start_29/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/fq5zU9T_Hl4_start_29.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/fq5zU9T_Hl4_start_29/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/fq5zU9T_Hl4_start_29.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/fq5zU9T_Hl4_start_29/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+ -->
+
+<!-- 
+    <div class="box">
+      <h3 class="title is-5">F1 | Official Trailer (2025)</h3>
+      <div class="mb-4">
+        <strong>Input Video</strong><br>
+        <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/69ffwl-8pCU_start_43.jpg">
+          <source src="static/cvpr_videos/original/videos/69ffwl-8pCU_start_43.mp4" type="video/mp4">
+        </video>
+        
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/69ffwl-8pCU_start_43.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/69ffwl-8pCU_start_43/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/69ffwl-8pCU_start_43.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/69ffwl-8pCU_start_43/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/69ffwl-8pCU_start_43.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/69ffwl-8pCU_start_43/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>DAVIS - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/69ffwl-8pCU_start_43.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/69ffwl-8pCU_start_43/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/69ffwl-8pCU_start_43.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/69ffwl-8pCU_start_43/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/69ffwl-8pCU_start_43.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/69ffwl-8pCU_start_43/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div> -->
+
+
+<!-- 
+    <div class="box">
+      <h3 class="title is-5">Mission: Impossible – The Final Reckoning | Official Trailer (2025)</h3>
+      <div class="mb-4">
+        <strong>Input Video</strong><br>
+        <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/fsQgc9pCyDU_start_59.jpg">
+          <source src="static/cvpr_videos/original/videos/fsQgc9pCyDU_start_59.mp4" type="video/mp4">
+        </video>
+        
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/fsQgc9pCyDU_start_59.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/fsQgc9pCyDU_start_59/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/fsQgc9pCyDU_start_59.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/fsQgc9pCyDU_start_59/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/fsQgc9pCyDU_start_59.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/fsQgc9pCyDU_start_59/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>DAVIS - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/fsQgc9pCyDU_start_59.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/fsQgc9pCyDU_start_59/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/fsQgc9pCyDU_start_59.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/fsQgc9pCyDU_start_59/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/fsQgc9pCyDU_start_59.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/fsQgc9pCyDU_start_59/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+ -->
+
+<!-- 
+    <div class="box">
+      <h3 class="title is-5">Superman | Official Trailer (2025)</h3>
+      <div class="mb-4">
+        <strong>Input Video</strong><br>
+        <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/Ox8ZLF6cGM0_start_9.jpg">
+          <source src="static/cvpr_videos/original/videos/Ox8ZLF6cGM0_start_9.mp4" type="video/mp4">
+        </video>
+        
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/Ox8ZLF6cGM0_start_9.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/Ox8ZLF6cGM0_start_9/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/Ox8ZLF6cGM0_start_9.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/Ox8ZLF6cGM0_start_9/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/Ox8ZLF6cGM0_start_9.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/Ox8ZLF6cGM0_start_9/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>DAVIS - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/Ox8ZLF6cGM0_start_9.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/Ox8ZLF6cGM0_start_9/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/Ox8ZLF6cGM0_start_9.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/Ox8ZLF6cGM0_start_9/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/Ox8ZLF6cGM0_start_9.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/Ox8ZLF6cGM0_start_9/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+ -->
+
+<!-- 
+    <div class="box">
+      <h3 class="title is-5">Materialists | Official Trailer HD | A24 (2025)</h3>
+      <div class="mb-4">
+        <strong>Input Video</strong><br>
+        <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/4A_kmjtsJ7c_start_6.jpg">
+          <source src="static/cvpr_videos/original/videos/4A_kmjtsJ7c_start_6.mp4" type="video/mp4">
+        </video>
+        
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/4A_kmjtsJ7c_start_6.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/4A_kmjtsJ7c_start_6/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/4A_kmjtsJ7c_start_6.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/4A_kmjtsJ7c_start_6/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/4A_kmjtsJ7c_start_6.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/4A_kmjtsJ7c_start_6/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>DAVIS - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/4A_kmjtsJ7c_start_6.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/4A_kmjtsJ7c_start_6/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/4A_kmjtsJ7c_start_6.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/4A_kmjtsJ7c_start_6/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/4A_kmjtsJ7c_start_6.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/4A_kmjtsJ7c_start_6/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+ -->
+
+<!-- 
+    <div class="box">
+      <h3 class="title is-5">My Oxford Year | Official Trailer | Netflix (2025)</h3>
+      <div class="mb-4">
+        <strong>Input Video</strong><br>
+        <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/EKQPCiUSRAo_start_41.jpg">
+          <source src="static/cvpr_videos/original/videos/EKQPCiUSRAo_start_41.mp4" type="video/mp4">
+        </video>
+        
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/EKQPCiUSRAo_start_41.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/EKQPCiUSRAo_start_41/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/EKQPCiUSRAo_start_41.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/EKQPCiUSRAo_start_41/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/EKQPCiUSRAo_start_41.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/EKQPCiUSRAo_start_41/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>DAVIS - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/EKQPCiUSRAo_start_41.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/EKQPCiUSRAo_start_41/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/EKQPCiUSRAo_start_41.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/EKQPCiUSRAo_start_41/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/EKQPCiUSRAo_start_41.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/EKQPCiUSRAo_start_41/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div> -->
+
+
+<!-- 
+    <div class="box">
+      <h3 class="title is-5">WONKA | Official Trailer (2023)</h3>
+      <div class="mb-4">
+        <strong>Input Video</strong><br>
+        <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/otNh9bTjXWg_start_42.jpg">
+          <source src="static/cvpr_videos/original/videos/otNh9bTjXWg_start_42.mp4" type="video/mp4">
+        </video>
+        
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/otNh9bTjXWg_start_42.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/otNh9bTjXWg_start_42/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/otNh9bTjXWg_start_42.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/otNh9bTjXWg_start_42/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/otNh9bTjXWg_start_42.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/otNh9bTjXWg_start_42/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>DAVIS - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/otNh9bTjXWg_start_42.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/otNh9bTjXWg_start_42/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/otNh9bTjXWg_start_42.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/otNh9bTjXWg_start_42/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/otNh9bTjXWg_start_42.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/otNh9bTjXWg_start_42/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div> -->
+
+
+<!-- 
+    <div class="box">
+      <h3 class="title is-5">Good Fortune | Official Trailer (2025)</h3>
+      <div class="mb-4">
+        <strong>Input Video</strong><br>
+        <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/ZKWndx83RwQ_start_32.jpg">
+          <source src="static/cvpr_videos/original/videos/ZKWndx83RwQ_start_32.mp4" type="video/mp4">
+        </video>
+        
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/ZKWndx83RwQ_start_32.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/ZKWndx83RwQ_start_32/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/ZKWndx83RwQ_start_32.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/ZKWndx83RwQ_start_32/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/ZKWndx83RwQ_start_32.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/ZKWndx83RwQ_start_32/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>DAVIS - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/ZKWndx83RwQ_start_32.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/ZKWndx83RwQ_start_32/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/ZKWndx83RwQ_start_32.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/ZKWndx83RwQ_start_32/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/ZKWndx83RwQ_start_32.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/ZKWndx83RwQ_start_32/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div> -->
+
+
+<!-- 
+    <div class="box">
+      <h3 class="title is-5">Good Fortune | Official Trailer (2025)</h3>
+      <div class="mb-4">
+        <strong>Input Video</strong><br>
+        <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/ZKWndx83RwQ_start_100.jpg">
+          <source src="static/cvpr_videos/original/videos/ZKWndx83RwQ_start_100.mp4" type="video/mp4">
+        </video>
+        
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/ZKWndx83RwQ_start_100.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/ZKWndx83RwQ_start_100/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/ZKWndx83RwQ_start_100.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/ZKWndx83RwQ_start_100/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/ZKWndx83RwQ_start_100.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/ZKWndx83RwQ_start_100/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>DAVIS - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/ZKWndx83RwQ_start_100.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/ZKWndx83RwQ_start_100/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/ZKWndx83RwQ_start_100.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/ZKWndx83RwQ_start_100/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/ZKWndx83RwQ_start_100.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/ZKWndx83RwQ_start_100/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div> -->
+
+
+<!-- 
+    <div class="box">
+      <h3 class="title is-5">THE MENU | Official Trailer (2022)</h3>
+      <div class="mb-4">
+        <strong>Input Video</strong><br>
+        <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/C_uTkUGcHv4_start_20.jpg">
+          <source src="static/cvpr_videos/original/videos/C_uTkUGcHv4_start_20.mp4" type="video/mp4">
+        </video>
+        
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/C_uTkUGcHv4_start_20.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/C_uTkUGcHv4_start_20/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/C_uTkUGcHv4_start_20.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/C_uTkUGcHv4_start_20/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/C_uTkUGcHv4_start_20.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/C_uTkUGcHv4_start_20/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>DAVIS - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/C_uTkUGcHv4_start_20.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/C_uTkUGcHv4_start_20/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/C_uTkUGcHv4_start_20.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/C_uTkUGcHv4_start_20/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/C_uTkUGcHv4_start_20.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/C_uTkUGcHv4_start_20/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div> -->
+
+
+<!-- 
+    <div class="box">
+      <h3 class="title is-5">Glass Onion: A Knives Out Mystery | Official Trailer (2022)</h3>
+      <div class="mb-4">
+        <strong>Input Video</strong><br>
+        <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/gj5ibYSz8C0_start_6.jpg">
+          <source src="static/cvpr_videos/original/videos/gj5ibYSz8C0_start_6.mp4" type="video/mp4">
+        </video>
+        
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/gj5ibYSz8C0_start_6.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/gj5ibYSz8C0_start_6/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/gj5ibYSz8C0_start_6.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/gj5ibYSz8C0_start_6/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/gj5ibYSz8C0_start_6.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/gj5ibYSz8C0_start_6/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>DAVIS - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/gj5ibYSz8C0_start_6.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/gj5ibYSz8C0_start_6/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/gj5ibYSz8C0_start_6.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/gj5ibYSz8C0_start_6/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/gj5ibYSz8C0_start_6.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/gj5ibYSz8C0_start_6/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div> -->
+
+
+<!-- 
+    <div class="box">
+      <h3 class="title is-5">Glass Onion: A Knives Out Mystery | Official Trailer (2022)</h3>
+      <div class="mb-4">
+        <strong>Input Video</strong><br>
+        <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/gj5ibYSz8C0_start_30.jpg">
+          <source src="static/cvpr_videos/original/videos/gj5ibYSz8C0_start_30.mp4" type="video/mp4">
+        </video>
+        
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/gj5ibYSz8C0_start_30.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/gj5ibYSz8C0_start_30/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/gj5ibYSz8C0_start_30.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/gj5ibYSz8C0_start_30/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/gj5ibYSz8C0_start_30.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/gj5ibYSz8C0_start_30/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>DAVIS - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/gj5ibYSz8C0_start_30.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/gj5ibYSz8C0_start_30/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/gj5ibYSz8C0_start_30.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/gj5ibYSz8C0_start_30/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/gj5ibYSz8C0_start_30.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/gj5ibYSz8C0_start_30/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+ -->
+
+<!-- 
+    <div class="box">
+      <h3 class="title is-5">Knives Out | Official Trailer (2019)</h3>
+      <div class="mb-4">
+        <strong>Input Video</strong><br>
+        <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/sL-9Khv7wa4_start_41.jpg">
+          <source src="static/cvpr_videos/original/videos/sL-9Khv7wa4_start_41.mp4" type="video/mp4">
+        </video>
+        
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/sL-9Khv7wa4_start_41.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/sL-9Khv7wa4_start_41/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/sL-9Khv7wa4_start_41.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/sL-9Khv7wa4_start_41/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/sL-9Khv7wa4_start_41.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/sL-9Khv7wa4_start_41/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>DAVIS - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/sL-9Khv7wa4_start_41.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/sL-9Khv7wa4_start_41/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/sL-9Khv7wa4_start_41.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/sL-9Khv7wa4_start_41/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/sL-9Khv7wa4_start_41.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/sL-9Khv7wa4_start_41/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+ -->
+
+<!-- 
+    <div class="box">
+      <h3 class="title is-5">Knives Out | Official Trailer (2019)</h3>
+      <div class="mb-4">
+        <strong>Input Video</strong><br>
+        <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/sL-9Khv7wa4_start_107.jpg">
+          <source src="static/cvpr_videos/original/videos/sL-9Khv7wa4_start_107.mp4" type="video/mp4">
+        </video>
+        
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/sL-9Khv7wa4_start_107.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/sL-9Khv7wa4_start_107/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/sL-9Khv7wa4_start_107.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/sL-9Khv7wa4_start_107/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/sL-9Khv7wa4_start_107.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/sL-9Khv7wa4_start_107/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>DAVIS - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/sL-9Khv7wa4_start_107.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/sL-9Khv7wa4_start_107/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/sL-9Khv7wa4_start_107.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/sL-9Khv7wa4_start_107/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/sL-9Khv7wa4_start_107.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/sL-9Khv7wa4_start_107/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div> -->
+
+
+<!-- 
+    <div class="box">
+      <h3 class="title is-5">FORD v FERRARI | Official Trailer (2019)</h3>
+      <div class="mb-4">
+        <strong>Input Video</strong><br>
+        <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/zyYgDtY2AMY_start_6.jpg">
+          <source src="static/cvpr_videos/original/videos/zyYgDtY2AMY_start_6.mp4" type="video/mp4">
+        </video>
+        
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/zyYgDtY2AMY_start_6.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/zyYgDtY2AMY_start_6/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/zyYgDtY2AMY_start_6.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/zyYgDtY2AMY_start_6/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/zyYgDtY2AMY_start_6.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/zyYgDtY2AMY_start_6/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>DAVIS - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/zyYgDtY2AMY_start_6.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/zyYgDtY2AMY_start_6/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/zyYgDtY2AMY_start_6.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/zyYgDtY2AMY_start_6/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/zyYgDtY2AMY_start_6.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/zyYgDtY2AMY_start_6/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div> -->
+
+
+<!-- 
+    <div class="box">
+      <h3 class="title is-5">FORD v FERRARI | Official Trailer (2019)</h3>
+      <div class="mb-4">
+        <strong>Input Video</strong><br>
+        <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/zyYgDtY2AMY_start_64.jpg">
+          <source src="static/cvpr_videos/original/videos/zyYgDtY2AMY_start_64.mp4" type="video/mp4">
+        </video>
+        
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/zyYgDtY2AMY_start_64.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/zyYgDtY2AMY_start_64/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/zyYgDtY2AMY_start_64.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/zyYgDtY2AMY_start_64/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/zyYgDtY2AMY_start_64.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/zyYgDtY2AMY_start_64/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>DAVIS - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/zyYgDtY2AMY_start_64.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/zyYgDtY2AMY_start_64/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/zyYgDtY2AMY_start_64.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/zyYgDtY2AMY_start_64/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/zyYgDtY2AMY_start_64.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/zyYgDtY2AMY_start_64/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+ -->
+
+<!-- 
+    <div class="box">
+      <h3 class="title is-5">Top Gun: Maverick | Official Trailer (2022)</h3>
+      <div class="mb-4">
+        <strong>Input Video</strong><br>
+        <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/giXco2jaZ_4_start_41.jpg">
+          <source src="static/cvpr_videos/original/videos/giXco2jaZ_4_start_41.mp4" type="video/mp4">
+        </video>
+        
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/giXco2jaZ_4_start_41.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/giXco2jaZ_4_start_41/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/giXco2jaZ_4_start_41.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/giXco2jaZ_4_start_41/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/giXco2jaZ_4_start_41.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/giXco2jaZ_4_start_41/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>DAVIS - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/giXco2jaZ_4_start_41.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/giXco2jaZ_4_start_41/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/giXco2jaZ_4_start_41.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/giXco2jaZ_4_start_41/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/giXco2jaZ_4_start_41.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/giXco2jaZ_4_start_41/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div> -->
+
+
+<!-- 
+    <div class="box">
+      <h3 class="title is-5">Top Gun: Maverick | Official Trailer (2022)</h3>
+      <div class="mb-4">
+        <strong>Input Video</strong><br>
+        <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/giXco2jaZ_4_start_89.jpg">
+          <source src="static/cvpr_videos/original/videos/giXco2jaZ_4_start_89.mp4" type="video/mp4">
+        </video>
+        
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/giXco2jaZ_4_start_89.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/giXco2jaZ_4_start_89/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/giXco2jaZ_4_start_89.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/giXco2jaZ_4_start_89/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/giXco2jaZ_4_start_89.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/giXco2jaZ_4_start_89/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>DAVIS - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/giXco2jaZ_4_start_89.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/giXco2jaZ_4_start_89/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/giXco2jaZ_4_start_89.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/giXco2jaZ_4_start_89/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/giXco2jaZ_4_start_89.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/giXco2jaZ_4_start_89/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div> -->
+
+
+<!-- 
+    <div class="box">
+      <h3 class="title is-5">DON'T LOOK UP | Official Trailer (2021)</h3>
+      <div class="mb-4">
+        <strong>Input Video</strong><br>
+        <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/RbIxYm3mKzI_start_42.jpg">
+          <source src="static/cvpr_videos/original/videos/RbIxYm3mKzI_start_42.mp4" type="video/mp4">
+        </video>
+        
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/RbIxYm3mKzI_start_42.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/RbIxYm3mKzI_start_42/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/RbIxYm3mKzI_start_42.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/RbIxYm3mKzI_start_42/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/RbIxYm3mKzI_start_42.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/RbIxYm3mKzI_start_42/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>DAVIS - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/RbIxYm3mKzI_start_42.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/RbIxYm3mKzI_start_42/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/RbIxYm3mKzI_start_42.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/RbIxYm3mKzI_start_42/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/RbIxYm3mKzI_start_42.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/RbIxYm3mKzI_start_42/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div> -->
+
+
+<!-- 
+    <div class="box">
+      <h3 class="title is-5">Foundation | Official Trailer (2021)</h3>
+      <div class="mb-4">
+        <strong>Input Video</strong><br>
+        <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/X4QYV5GTz7c_start_68.jpg">
+          <source src="static/cvpr_videos/original/videos/X4QYV5GTz7c_start_68.mp4" type="video/mp4">
+        </video>
+        
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/X4QYV5GTz7c_start_68.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/X4QYV5GTz7c_start_68/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/X4QYV5GTz7c_start_68.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/X4QYV5GTz7c_start_68/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/X4QYV5GTz7c_start_68.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/X4QYV5GTz7c_start_68/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>DAVIS - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/X4QYV5GTz7c_start_68.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/X4QYV5GTz7c_start_68/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/X4QYV5GTz7c_start_68.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/X4QYV5GTz7c_start_68/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/X4QYV5GTz7c_start_68.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/X4QYV5GTz7c_start_68/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div> -->
+
+
+<!-- 
+    <div class="box">
+      <h3 class="title is-5">Foundation | Official Trailer (2021)</h3>
+      <div class="mb-4">
+        <strong>Input Video</strong><br>
+        <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/X4QYV5GTz7c_start_124.jpg">
+          <source src="static/cvpr_videos/original/videos/X4QYV5GTz7c_start_124.mp4" type="video/mp4">
+        </video>
+        
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/X4QYV5GTz7c_start_124.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/X4QYV5GTz7c_start_124/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/X4QYV5GTz7c_start_124.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/X4QYV5GTz7c_start_124/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/X4QYV5GTz7c_start_124.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/X4QYV5GTz7c_start_124/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>DAVIS - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/X4QYV5GTz7c_start_124.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/X4QYV5GTz7c_start_124/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/X4QYV5GTz7c_start_124.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/X4QYV5GTz7c_start_124/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/X4QYV5GTz7c_start_124.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/X4QYV5GTz7c_start_124/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div> -->
+
+
+<!-- 
+    <div class="box">
+      <h3 class="title is-5">Slow Horses | Official Trailer (2022)</h3>
+      <div class="mb-4">
+        <strong>Input Video</strong><br>
+        <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/O9ZJChzPn0U_start_75.jpg">
+          <source src="static/cvpr_videos/original/videos/O9ZJChzPn0U_start_75.mp4" type="video/mp4">
+        </video>
+        
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/O9ZJChzPn0U_start_75.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/O9ZJChzPn0U_start_75/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/O9ZJChzPn0U_start_75.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/O9ZJChzPn0U_start_75/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/O9ZJChzPn0U_start_75.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/O9ZJChzPn0U_start_75/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>DAVIS - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/O9ZJChzPn0U_start_75.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/O9ZJChzPn0U_start_75/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/O9ZJChzPn0U_start_75.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/O9ZJChzPn0U_start_75/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/O9ZJChzPn0U_start_75.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/O9ZJChzPn0U_start_75/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+ -->
+
+<!-- 
+    <div class="box">
+      <h3 class="title is-5">Interstellar | Official Trailer (2014)</h3>
+      <div class="mb-4">
+        <strong>Input Video</strong><br>
+        <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/2LqzF5WauAw_start_31.jpg">
+          <source src="static/cvpr_videos/original/videos/2LqzF5WauAw_start_31.mp4" type="video/mp4">
+        </video>
+        
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/2LqzF5WauAw_start_31.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/2LqzF5WauAw_start_31/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/2LqzF5WauAw_start_31.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/2LqzF5WauAw_start_31/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/2LqzF5WauAw_start_31.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/2LqzF5WauAw_start_31/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>DAVIS - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/2LqzF5WauAw_start_31.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/2LqzF5WauAw_start_31/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/2LqzF5WauAw_start_31.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/2LqzF5WauAw_start_31/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/2LqzF5WauAw_start_31.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/2LqzF5WauAw_start_31/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div> -->
+
+
+
+    <div class="box">
+      <h3 class="title is-5">The Martian | Official Trailer (2015)</h3>
+      <div class="mb-4">
+        <strong>Input Video</strong><br>
+        <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/ej3ioOneTy8_start_102.jpg">
+          <source src="static/cvpr_videos/original/videos/ej3ioOneTy8_start_102.mp4" type="video/mp4">
+        </video>
+        
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/ej3ioOneTy8_start_102.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/ej3ioOneTy8_start_102/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/ej3ioOneTy8_start_102.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/ej3ioOneTy8_start_102/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/ej3ioOneTy8_start_102.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/ej3ioOneTy8_start_102/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>DAVIS - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/ej3ioOneTy8_start_102.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/ej3ioOneTy8_start_102/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/ej3ioOneTy8_start_102.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/ej3ioOneTy8_start_102/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/ej3ioOneTy8_start_102.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/ej3ioOneTy8_start_102/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+
+
+<!-- 
+    <div class="box">
+      <h3 class="title is-5">The Martian | Official Trailer (2015)</h3>
+      <div class="mb-4">
+        <strong>Input Video</strong><br>
+        <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/ej3ioOneTy8_start_135.jpg">
+          <source src="static/cvpr_videos/original/videos/ej3ioOneTy8_start_135.mp4" type="video/mp4">
+        </video>
+        
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/ej3ioOneTy8_start_135.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/ej3ioOneTy8_start_135/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/ej3ioOneTy8_start_135.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/ej3ioOneTy8_start_135/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/ej3ioOneTy8_start_135.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/ej3ioOneTy8_start_135/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>DAVIS - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/ej3ioOneTy8_start_135.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/ej3ioOneTy8_start_135/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/ej3ioOneTy8_start_135.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/ej3ioOneTy8_start_135/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/ej3ioOneTy8_start_135.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/ej3ioOneTy8_start_135/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+ -->
+
+<!-- 
+    <div class="box">
+      <h3 class="title is-5">About My Father | Official Trailer (2023)</h3>
+      <div class="mb-4">
+        <strong>Input Video</strong><br>
+        <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/txLSE7tpgr0_start_14.jpg">
+          <source src="static/cvpr_videos/original/videos/txLSE7tpgr0_start_14.mp4" type="video/mp4">
+        </video>
+        
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/txLSE7tpgr0_start_14.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/txLSE7tpgr0_start_14/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/txLSE7tpgr0_start_14.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/txLSE7tpgr0_start_14/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/txLSE7tpgr0_start_14.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/txLSE7tpgr0_start_14/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>DAVIS - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/txLSE7tpgr0_start_14.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/txLSE7tpgr0_start_14/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/txLSE7tpgr0_start_14.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/txLSE7tpgr0_start_14/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/txLSE7tpgr0_start_14.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/txLSE7tpgr0_start_14/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div> -->
+
+
+<!-- 
+    <div class="box">
+      <h3 class="title is-5">About My Father | Official Trailer (2023)</h3>
+      <div class="mb-4">
+        <strong>Input Video</strong><br>
+        <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/txLSE7tpgr0_start_35.jpg">
+          <source src="static/cvpr_videos/original/videos/txLSE7tpgr0_start_35.mp4" type="video/mp4">
+        </video>
+        
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/txLSE7tpgr0_start_35.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/txLSE7tpgr0_start_35/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/txLSE7tpgr0_start_35.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/txLSE7tpgr0_start_35/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/txLSE7tpgr0_start_35.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/txLSE7tpgr0_start_35/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>DAVIS - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/txLSE7tpgr0_start_35.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/txLSE7tpgr0_start_35/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/txLSE7tpgr0_start_35.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/txLSE7tpgr0_start_35/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/txLSE7tpgr0_start_35.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/txLSE7tpgr0_start_35/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div> -->
+
+
+<!-- 
+    <div class="box">
+      <h3 class="title is-5">About My Father | Official Trailer (2023)</h3>
+      <div class="mb-4">
+        <strong>Input Video</strong><br>
+        <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/txLSE7tpgr0_start_92.jpg">
+          <source src="static/cvpr_videos/original/videos/txLSE7tpgr0_start_92.mp4" type="video/mp4">
+        </video>
+        
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/txLSE7tpgr0_start_92.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/txLSE7tpgr0_start_92/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/txLSE7tpgr0_start_92.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/txLSE7tpgr0_start_92/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/txLSE7tpgr0_start_92.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/txLSE7tpgr0_start_92/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>DAVIS - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/txLSE7tpgr0_start_92.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/txLSE7tpgr0_start_92/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/txLSE7tpgr0_start_92.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/txLSE7tpgr0_start_92/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/txLSE7tpgr0_start_92.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/txLSE7tpgr0_start_92/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div> -->
+
+
+<!-- 
+    <div class="box">
+      <h3 class="title is-5">SPIDER-MAN: NO WAY HOME (2021)</h3>
+      <div class="mb-4">
+        <strong>Input Video</strong><br>
+        <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/JfVOs4VSpmA_start_6.jpg">
+          <source src="static/cvpr_videos/original/videos/JfVOs4VSpmA_start_6.mp4" type="video/mp4">
+        </video>
+        
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/JfVOs4VSpmA_start_6.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/JfVOs4VSpmA_start_6/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/JfVOs4VSpmA_start_6.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/JfVOs4VSpmA_start_6/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/JfVOs4VSpmA_start_6.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/JfVOs4VSpmA_start_6/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>DAVIS - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/JfVOs4VSpmA_start_6.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/JfVOs4VSpmA_start_6/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/JfVOs4VSpmA_start_6.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/JfVOs4VSpmA_start_6/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/JfVOs4VSpmA_start_6.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/JfVOs4VSpmA_start_6/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div> -->
+
+<!-- 
+    <div class="box">
+      <h3 class="title is-5">SPIDER-MAN: FAR FROM HOME (2019)</h3>
+      <div class="mb-4">
+        <strong>Input Video</strong><br>
+        <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/Nt9L1jCKGnE_start_47.jpg">
+          <source src="static/cvpr_videos/original/videos/Nt9L1jCKGnE_start_47.mp4" type="video/mp4">
+        </video>
+        
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/Nt9L1jCKGnE_start_47.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/Nt9L1jCKGnE_start_47/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/Nt9L1jCKGnE_start_47.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/Nt9L1jCKGnE_start_47/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/Nt9L1jCKGnE_start_47.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/Nt9L1jCKGnE_start_47/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>DAVIS - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/Nt9L1jCKGnE_start_47.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/Nt9L1jCKGnE_start_47/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/Nt9L1jCKGnE_start_47.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/Nt9L1jCKGnE_start_47/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/Nt9L1jCKGnE_start_47.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/Nt9L1jCKGnE_start_47/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div> -->
+
+
+
+    <div class="box">
+      <h3 class="title is-5">WONKA | Official Trailer (2023)</h3>
+      <div class="mb-4">
+        <strong>Input Video</strong><br>
+        <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/otNh9bTjXWg_start_17.jpg">
+          <source src="static/cvpr_videos/original/videos/otNh9bTjXWg_start_17.mp4" type="video/mp4">
+        </video>
+        
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/otNh9bTjXWg_start_17.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/otNh9bTjXWg_start_17/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/otNh9bTjXWg_start_17.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/otNh9bTjXWg_start_17/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/otNh9bTjXWg_start_17.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/otNh9bTjXWg_start_17/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>DAVIS - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/otNh9bTjXWg_start_17.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/otNh9bTjXWg_start_17/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/otNh9bTjXWg_start_17.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/otNh9bTjXWg_start_17/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/otNh9bTjXWg_start_17.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/otNh9bTjXWg_start_17/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+
+
+<!-- 
+    <div class="box">
+      <h3 class="title is-5">Slow Horses | Official Trailer (2022)</h3>
+      <div class="mb-4">
+        <strong>Input Video</strong><br>
+        <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/O9ZJChzPn0U_start_96.jpg">
+          <source src="static/cvpr_videos/original/videos/O9ZJChzPn0U_start_96.mp4" type="video/mp4">
+        </video>
+        
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/O9ZJChzPn0U_start_96.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/O9ZJChzPn0U_start_96/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/O9ZJChzPn0U_start_96.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/O9ZJChzPn0U_start_96/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/O9ZJChzPn0U_start_96.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/O9ZJChzPn0U_start_96/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>DAVIS - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/O9ZJChzPn0U_start_96.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/O9ZJChzPn0U_start_96/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/O9ZJChzPn0U_start_96.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/O9ZJChzPn0U_start_96/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/O9ZJChzPn0U_start_96.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/O9ZJChzPn0U_start_96/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div> -->
+
+
+
+    <div class="box">
+      <h3 class="title is-5">Inception (2010)</h3>
+      <div class="mb-4">
+        <strong>Input Video</strong><br>
+        <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/0b-H8oQUs1A_start_50.jpg">
+          <source src="static/cvpr_videos/original/videos/0b-H8oQUs1A_start_50.mp4" type="video/mp4">
+        </video>
+        
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/0b-H8oQUs1A_start_50.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/0b-H8oQUs1A_start_50/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/0b-H8oQUs1A_start_50.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/0b-H8oQUs1A_start_50/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/0b-H8oQUs1A_start_50.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/0b-H8oQUs1A_start_50/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>DAVIS - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/0b-H8oQUs1A_start_50.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/0b-H8oQUs1A_start_50/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/0b-H8oQUs1A_start_50.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/0b-H8oQUs1A_start_50/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/0b-H8oQUs1A_start_50.jpg">
+            <source src="static/cvpr_videos/DAVIS/videos/0b-H8oQUs1A_start_50/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+
+
+<!-- 
+    <div class="box">
+      <h3 class="title is-5">Knowing (2009)</h3>
+      <div class="mb-4">
+        <strong>Input Video</strong><br>
+        <video controls width="100%" preload="none" poster="static/images/thumbnails/2014/_pWW7Xmat6o_start_0.jpg">
+          <source src="static/cvpr_videos/original/2014/_pWW7Xmat6o_start_0.mp4" type="video/mp4">
+        </video>
+        
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2014/_pWW7Xmat6o_start_0.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2014/_pWW7Xmat6o_start_0/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2014/_pWW7Xmat6o_start_0.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2014/_pWW7Xmat6o_start_0/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2014/_pWW7Xmat6o_start_0.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2014/_pWW7Xmat6o_start_0/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>DAVIS - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2014/_pWW7Xmat6o_start_0.jpg">
+            <source src="static/cvpr_videos/DAVIS/2014/_pWW7Xmat6o_start_0/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2014/_pWW7Xmat6o_start_0.jpg">
+            <source src="static/cvpr_videos/DAVIS/2014/_pWW7Xmat6o_start_0/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2014/_pWW7Xmat6o_start_0.jpg">
+            <source src="static/cvpr_videos/DAVIS/2014/_pWW7Xmat6o_start_0/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+ -->
+
+
+    <div class="box">
+      <h3 class="title is-5">Bandslam (2009)</h3>
+      <div class="mb-4">
+        <strong>Input Video (no music in this clip)</strong><br>
+        <video controls width="100%" preload="none" poster="static/images/thumbnails/2014/THFVJBcv7W4_start_11.jpg">
+          <source src="static/cvpr_videos/original/2014/THFVJBcv7W4_start_11.mp4" type="video/mp4">
+        </video>
+        
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2014/THFVJBcv7W4_start_11.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2014/THFVJBcv7W4_start_11/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2014/THFVJBcv7W4_start_11.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2014/THFVJBcv7W4_start_11/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2014/THFVJBcv7W4_start_11.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2014/THFVJBcv7W4_start_11/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>DAVIS - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2014/THFVJBcv7W4_start_11.jpg">
+            <source src="static/cvpr_videos/DAVIS/2014/THFVJBcv7W4_start_11/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2014/THFVJBcv7W4_start_11.jpg">
+            <source src="static/cvpr_videos/DAVIS/2014/THFVJBcv7W4_start_11/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2014/THFVJBcv7W4_start_11.jpg">
+            <source src="static/cvpr_videos/DAVIS/2014/THFVJBcv7W4_start_11/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="box">
+      <h3 class="title is-5">The Hunger Games: Catching Fire (2013)</h3>
+      <div class="mb-4">
+        <strong>Input Video</strong><br>
+        <video controls width="100%" preload="none" poster="static/images/thumbnails/2014/AhH1Yqw-gmA_start_0.jpg">
+          <source src="static/cvpr_videos/original/2014/AhH1Yqw-gmA_start_0_end10.mp4" type="video/mp4">
+        </video>
+        
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2014/AhH1Yqw-gmA_start_0.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2014/AhH1Yqw-gmA_start_0_end10/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2014/AhH1Yqw-gmA_start_0.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2014/AhH1Yqw-gmA_start_0_end10/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2014/AhH1Yqw-gmA_start_0.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2014/AhH1Yqw-gmA_start_0_end10/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>DAVIS - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2014/AhH1Yqw-gmA_start_0.jpg">
+            <source src="static/cvpr_videos/DAVIS/2014/AhH1Yqw-gmA_start_0_end10/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2014/AhH1Yqw-gmA_start_0.jpg">
+            <source src="static/cvpr_videos/DAVIS/2014/AhH1Yqw-gmA_start_0_end10/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2014/AhH1Yqw-gmA_start_0.jpg">
+            <source src="static/cvpr_videos/DAVIS/2014/AhH1Yqw-gmA_start_0_end10/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+
+
+<!-- 
+    <div class="box">
+      <h3 class="title is-5">Cats & Dogs (2001)</h3>
+      <div class="mb-4">
+        <strong>Input Video</strong><br>
+        <video controls width="100%" preload="none" poster="static/images/thumbnails/2014/aIZsVuaUWB4_start_0.jpg">
+          <source src="static/cvpr_videos/original/2014/aIZsVuaUWB4_start_0.mp4" type="video/mp4">
+        </video>
+        
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2014/aIZsVuaUWB4_start_0.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2014/aIZsVuaUWB4_start_0/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2014/aIZsVuaUWB4_start_0.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2014/aIZsVuaUWB4_start_0/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2014/aIZsVuaUWB4_start_0.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2014/aIZsVuaUWB4_start_0/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>DAVIS - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2014/aIZsVuaUWB4_start_0.jpg">
+            <source src="static/cvpr_videos/DAVIS/2014/aIZsVuaUWB4_start_0/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2014/aIZsVuaUWB4_start_0.jpg">
+            <source src="static/cvpr_videos/DAVIS/2014/aIZsVuaUWB4_start_0/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2014/aIZsVuaUWB4_start_0.jpg">
+            <source src="static/cvpr_videos/DAVIS/2014/aIZsVuaUWB4_start_0/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+ -->
+
+<!-- 
+    <div class="box">
+      <h3 class="title is-5">The World According to Garp (1982)</h3>
+      <div class="mb-4">
+        <strong>Input Video</strong><br>
+        <video controls width="100%" preload="none" poster="static/images/thumbnails/2014/GTqz4duPdYQ_start_91.jpg">
+          <source src="static/cvpr_videos/original/2014/GTqz4duPdYQ_start_91.mp4" type="video/mp4">
+        </video>
+        
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2014/GTqz4duPdYQ_start_91.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2014/GTqz4duPdYQ_start_91/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2014/GTqz4duPdYQ_start_91.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2014/GTqz4duPdYQ_start_91/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2014/GTqz4duPdYQ_start_91.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2014/GTqz4duPdYQ_start_91/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>DAVIS - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2014/GTqz4duPdYQ_start_91.jpg">
+            <source src="static/cvpr_videos/DAVIS/2014/GTqz4duPdYQ_start_91/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2014/GTqz4duPdYQ_start_91.jpg">
+            <source src="static/cvpr_videos/DAVIS/2014/GTqz4duPdYQ_start_91/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2014/GTqz4duPdYQ_start_91.jpg">
+            <source src="static/cvpr_videos/DAVIS/2014/GTqz4duPdYQ_start_91/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div> -->
+
+
+
+    <div class="box">
+      <h3 class="title is-5">The Hunger Games: Catching Fire (2013)</h3>
+      <div class="mb-4">
+        <strong>Input Video</strong><br>
+        <video controls width="100%" preload="none" poster="static/images/thumbnails/2014/I44NZgYW6_4_start_71.jpg">
+          <source src="static/cvpr_videos/original/2014/I44NZgYW6_4_start_71.mp4" type="video/mp4">
+        </video>
+        
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2014/I44NZgYW6_4_start_71.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2014/I44NZgYW6_4_start_71/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2014/I44NZgYW6_4_start_71.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2014/I44NZgYW6_4_start_71/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2014/I44NZgYW6_4_start_71.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2014/I44NZgYW6_4_start_71/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>DAVIS - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2014/I44NZgYW6_4_start_71.jpg">
+            <source src="static/cvpr_videos/DAVIS/2014/I44NZgYW6_4_start_71/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2014/I44NZgYW6_4_start_71.jpg">
+            <source src="static/cvpr_videos/DAVIS/2014/I44NZgYW6_4_start_71/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2014/I44NZgYW6_4_start_71.jpg">
+            <source src="static/cvpr_videos/DAVIS/2014/I44NZgYW6_4_start_71/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="box">
+      <h3 class="title is-5">The Hunger Games: Catching Fire (2013)</h3>
+      <div class="mb-4">
+        <strong>Input Video</strong><br>
+        <video controls width="100%" preload="none" poster="static/images/thumbnails/2014/I44NZgYW6_4_start_87.jpg">
+          <source src="static/cvpr_videos/original/2014/I44NZgYW6_4_start_87.mp4" type="video/mp4">
+        </video>
+        
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2014/I44NZgYW6_4_start_87.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2014/I44NZgYW6_4_start_87/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2014/I44NZgYW6_4_start_87.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2014/I44NZgYW6_4_start_87/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2014/I44NZgYW6_4_start_87.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2014/I44NZgYW6_4_start_87/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>DAVIS - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2014/I44NZgYW6_4_start_87.jpg">
+            <source src="static/cvpr_videos/DAVIS/2014/I44NZgYW6_4_start_87/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2014/I44NZgYW6_4_start_87.jpg">
+            <source src="static/cvpr_videos/DAVIS/2014/I44NZgYW6_4_start_87/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2014/I44NZgYW6_4_start_87.jpg">
+            <source src="static/cvpr_videos/DAVIS/2014/I44NZgYW6_4_start_87/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+
+
+<!-- 
+    <div class="box">
+      <h3 class="title is-5">Lassie Come Home (1943)</h3>
+      <div class="mb-4">
+        <strong>Input Video</strong><br>
+        <video controls width="100%" preload="none" poster="static/images/thumbnails/2014/2H7XknY3PMA_start_29.jpg">
+          <source src="static/cvpr_videos/original/2014/2H7XknY3PMA_start_29.mp4" type="video/mp4">
+        </video>
+        
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2014/2H7XknY3PMA_start_29.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2014/2H7XknY3PMA_start_29/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2014/2H7XknY3PMA_start_29.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2014/2H7XknY3PMA_start_29/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2014/2H7XknY3PMA_start_29.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2014/2H7XknY3PMA_start_29/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>DAVIS - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2014/2H7XknY3PMA_start_29.jpg">
+            <source src="static/cvpr_videos/DAVIS/2014/2H7XknY3PMA_start_29/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2014/2H7XknY3PMA_start_29.jpg">
+            <source src="static/cvpr_videos/DAVIS/2014/2H7XknY3PMA_start_29/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2014/2H7XknY3PMA_start_29.jpg">
+            <source src="static/cvpr_videos/DAVIS/2014/2H7XknY3PMA_start_29/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div> -->
+
+
+<!-- 
+    <div class="box">
+      <h3 class="title is-5">Inglourious Basterds (2009)</h3>
+      <div class="mb-4">
+        <strong>Input Video</strong><br>
+        <video controls width="100%" preload="none" poster="static/images/thumbnails/2014/O5s3Oj2cPgc_start_0.jpg">
+          <source src="static/cvpr_videos/original/2014/O5s3Oj2cPgc_start_0.mp4" type="video/mp4">
+        </video>
+        
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2014/O5s3Oj2cPgc_start_0.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2014/O5s3Oj2cPgc_start_0/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2014/O5s3Oj2cPgc_start_0.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2014/O5s3Oj2cPgc_start_0/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2014/O5s3Oj2cPgc_start_0.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2014/O5s3Oj2cPgc_start_0/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>DAVIS - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2014/O5s3Oj2cPgc_start_0.jpg">
+            <source src="static/cvpr_videos/DAVIS/2014/O5s3Oj2cPgc_start_0/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2014/O5s3Oj2cPgc_start_0.jpg">
+            <source src="static/cvpr_videos/DAVIS/2014/O5s3Oj2cPgc_start_0/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2014/O5s3Oj2cPgc_start_0.jpg">
+            <source src="static/cvpr_videos/DAVIS/2014/O5s3Oj2cPgc_start_0/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div> -->
+
+
+<!-- 
+    <div class="box">
+      <h3 class="title is-5">Little Man Tate (1991)</h3>
+      <div class="mb-4">
+        <strong>Input Video</strong><br>
+        <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/_0X1jPgLo-A_start_92.jpg">
+          <source src="static/cvpr_videos/original/2018/_0X1jPgLo-A_start_92.mp4" type="video/mp4">
+        </video>
+        
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/_0X1jPgLo-A_start_92.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/_0X1jPgLo-A_start_92/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/_0X1jPgLo-A_start_92.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/_0X1jPgLo-A_start_92/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/_0X1jPgLo-A_start_92.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/_0X1jPgLo-A_start_92/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>DAVIS - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/_0X1jPgLo-A_start_92.jpg">
+            <source src="static/cvpr_videos/DAVIS/2018/_0X1jPgLo-A_start_92/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/_0X1jPgLo-A_start_92.jpg">
+            <source src="static/cvpr_videos/DAVIS/2018/_0X1jPgLo-A_start_92/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/_0X1jPgLo-A_start_92.jpg">
+            <source src="static/cvpr_videos/DAVIS/2018/_0X1jPgLo-A_start_92/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div> -->
+
+
+<!-- 
+    <div class="box">
+      <h3 class="title is-5">Little Man Tate (1991)</h3>
+      <div class="mb-4">
+        <strong>Input Video</strong><br>
+        <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/_Du0A1y4Wh4_start_137.jpg">
+          <source src="static/cvpr_videos/original/2018/_Du0A1y4Wh4_start_137.mp4" type="video/mp4">
+        </video>
+        
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/_Du0A1y4Wh4_start_137.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/_Du0A1y4Wh4_start_137/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/_Du0A1y4Wh4_start_137.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/_Du0A1y4Wh4_start_137/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/_Du0A1y4Wh4_start_137.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/_Du0A1y4Wh4_start_137/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>DAVIS - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/_Du0A1y4Wh4_start_137.jpg">
+            <source src="static/cvpr_videos/DAVIS/2018/_Du0A1y4Wh4_start_137/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/_Du0A1y4Wh4_start_137.jpg">
+            <source src="static/cvpr_videos/DAVIS/2018/_Du0A1y4Wh4_start_137/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/_Du0A1y4Wh4_start_137.jpg">
+            <source src="static/cvpr_videos/DAVIS/2018/_Du0A1y4Wh4_start_137/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div> -->
+
+
+<!-- 
+    <div class="box">
+      <h3 class="title is-5">Little Man Tate (1991)</h3>
+      <div class="mb-4">
+        <strong>Input Video</strong><br>
+        <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/-oL4NpO7eAw_start_0.jpg">
+          <source src="static/cvpr_videos/original/2018/-oL4NpO7eAw_start_0.mp4" type="video/mp4">
+        </video>
+        
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/-oL4NpO7eAw_start_0.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/-oL4NpO7eAw_start_0/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/-oL4NpO7eAw_start_0.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/-oL4NpO7eAw_start_0/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/-oL4NpO7eAw_start_0.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/-oL4NpO7eAw_start_0/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>DAVIS - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/-oL4NpO7eAw_start_0.jpg">
+            <source src="static/cvpr_videos/DAVIS/2018/-oL4NpO7eAw_start_0/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/-oL4NpO7eAw_start_0.jpg">
+            <source src="static/cvpr_videos/DAVIS/2018/-oL4NpO7eAw_start_0/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/-oL4NpO7eAw_start_0.jpg">
+            <source src="static/cvpr_videos/DAVIS/2018/-oL4NpO7eAw_start_0/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div> -->
+
+
+<!-- 
+    <div class="box">
+      <h3 class="title is-5">Death Wish II (1982)</h3>
+      <div class="mb-4">
+        <strong>Input Video</strong><br>
+        <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/aDcfm_9GTyU_start_5.jpg">
+          <source src="static/cvpr_videos/original/2018/aDcfm_9GTyU_start_5.mp4" type="video/mp4">
+        </video>
+        
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/aDcfm_9GTyU_start_5.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/aDcfm_9GTyU_start_5/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/aDcfm_9GTyU_start_5.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/aDcfm_9GTyU_start_5/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/aDcfm_9GTyU_start_5.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/aDcfm_9GTyU_start_5/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>DAVIS - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/aDcfm_9GTyU_start_5.jpg">
+            <source src="static/cvpr_videos/DAVIS/2018/aDcfm_9GTyU_start_5/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/aDcfm_9GTyU_start_5.jpg">
+            <source src="static/cvpr_videos/DAVIS/2018/aDcfm_9GTyU_start_5/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/aDcfm_9GTyU_start_5.jpg">
+            <source src="static/cvpr_videos/DAVIS/2018/aDcfm_9GTyU_start_5/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div> -->
+
+
+<!-- 
+    <div class="box">
+      <h3 class="title is-5">Rescue Dawn (2006)</h3>
+      <div class="mb-4">
+        <strong>Input Video</strong><br>
+        <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/BFAfiz1daR4_start_40.jpg">
+          <source src="static/cvpr_videos/original/2018/BFAfiz1daR4_start_40.mp4" type="video/mp4">
+        </video>
+        
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/BFAfiz1daR4_start_40.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/BFAfiz1daR4_start_40/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/BFAfiz1daR4_start_40.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/BFAfiz1daR4_start_40/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/BFAfiz1daR4_start_40.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/BFAfiz1daR4_start_40/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>DAVIS - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/BFAfiz1daR4_start_40.jpg">
+            <source src="static/cvpr_videos/DAVIS/2018/BFAfiz1daR4_start_40/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/BFAfiz1daR4_start_40.jpg">
+            <source src="static/cvpr_videos/DAVIS/2018/BFAfiz1daR4_start_40/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/BFAfiz1daR4_start_40.jpg">
+            <source src="static/cvpr_videos/DAVIS/2018/BFAfiz1daR4_start_40/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div> -->
+
+
+<!-- 
+    <div class="box">
+      <h3 class="title is-5">Mamma Mia! (2008)</h3>
+      <div class="mb-4">
+        <strong>Input Video</strong><br>
+        <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/bu9YxTb6gf8_start_15.jpg">
+          <source src="static/cvpr_videos/original/2018/bu9YxTb6gf8_start_15.mp4" type="video/mp4">
+        </video>
+        
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/bu9YxTb6gf8_start_15.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/bu9YxTb6gf8_start_15/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/bu9YxTb6gf8_start_15.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/bu9YxTb6gf8_start_15/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/bu9YxTb6gf8_start_15.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/bu9YxTb6gf8_start_15/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>DAVIS - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/bu9YxTb6gf8_start_15.jpg">
+            <source src="static/cvpr_videos/DAVIS/2018/bu9YxTb6gf8_start_15/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/bu9YxTb6gf8_start_15.jpg">
+            <source src="static/cvpr_videos/DAVIS/2018/bu9YxTb6gf8_start_15/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/bu9YxTb6gf8_start_15.jpg">
+            <source src="static/cvpr_videos/DAVIS/2018/bu9YxTb6gf8_start_15/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div> -->
+
+
+<!-- 
+    <div class="box">
+      <h3 class="title is-5">Teenage Mutant Ninja Turtles 2 (2016)</h3>
+      <div class="mb-4">
+        <strong>Input Video</strong><br>
+        <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/bY6jLt3owBQ_start_18.jpg">
+          <source src="static/cvpr_videos/original/2018/bY6jLt3owBQ_start_18.mp4" type="video/mp4">
+        </video>
+        
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/bY6jLt3owBQ_start_18.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/bY6jLt3owBQ_start_18/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/bY6jLt3owBQ_start_18.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/bY6jLt3owBQ_start_18/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/bY6jLt3owBQ_start_18.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/bY6jLt3owBQ_start_18/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>DAVIS - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/bY6jLt3owBQ_start_18.jpg">
+            <source src="static/cvpr_videos/DAVIS/2018/bY6jLt3owBQ_start_18/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/bY6jLt3owBQ_start_18.jpg">
+            <source src="static/cvpr_videos/DAVIS/2018/bY6jLt3owBQ_start_18/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/bY6jLt3owBQ_start_18.jpg">
+            <source src="static/cvpr_videos/DAVIS/2018/bY6jLt3owBQ_start_18/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div> -->
+
+
+<!-- 
+    <div class="box">
+      <h3 class="title is-5">San Andreas (2015)</h3>
+      <div class="mb-4">
+        <strong>Input Video</strong><br>
+        <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/CLxHRE-Knmc_start_0.jpg">
+          <source src="static/cvpr_videos/original/2018/CLxHRE-Knmc_start_0.mp4" type="video/mp4">
+        </video>
+        
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/CLxHRE-Knmc_start_0.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/CLxHRE-Knmc_start_0/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/CLxHRE-Knmc_start_0.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/CLxHRE-Knmc_start_0/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/CLxHRE-Knmc_start_0.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/CLxHRE-Knmc_start_0/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>DAVIS - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/CLxHRE-Knmc_start_0.jpg">
+            <source src="static/cvpr_videos/DAVIS/2018/CLxHRE-Knmc_start_0/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/CLxHRE-Knmc_start_0.jpg">
+            <source src="static/cvpr_videos/DAVIS/2018/CLxHRE-Knmc_start_0/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/CLxHRE-Knmc_start_0.jpg">
+            <source src="static/cvpr_videos/DAVIS/2018/CLxHRE-Knmc_start_0/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div> -->
+
+
+
+    <div class="box">
+      <h3 class="title is-5">Wonder Woman (2017)</h3>
+      <div class="mb-4">
+        <strong>Input Video</strong><br>
+        <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/CNuEnlaPuls_start_0.jpg">
+          <source src="static/cvpr_videos/original/2018/CNuEnlaPuls_start_0.mp4" type="video/mp4">
+        </video>
+        
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/CNuEnlaPuls_start_0.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/CNuEnlaPuls_start_0/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/CNuEnlaPuls_start_0.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/CNuEnlaPuls_start_0/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/CNuEnlaPuls_start_0.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/CNuEnlaPuls_start_0/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>DAVIS - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/CNuEnlaPuls_start_0.jpg">
+            <source src="static/cvpr_videos/DAVIS/2018/CNuEnlaPuls_start_0/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/CNuEnlaPuls_start_0.jpg">
+            <source src="static/cvpr_videos/DAVIS/2018/CNuEnlaPuls_start_0/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/CNuEnlaPuls_start_0.jpg">
+            <source src="static/cvpr_videos/DAVIS/2018/CNuEnlaPuls_start_0/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+
+
+<!-- 
+    <div class="box">
+      <h3 class="title is-5">Now You See Me 2 (2016)</h3>
+      <div class="mb-4">
+        <strong>Input Video</strong><br>
+        <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/DQU7X4QDX80_start_5.jpg">
+          <source src="static/cvpr_videos/original/2018/DQU7X4QDX80_start_5.mp4" type="video/mp4">
+        </video>
+        
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/DQU7X4QDX80_start_5.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/DQU7X4QDX80_start_5/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/DQU7X4QDX80_start_5.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/DQU7X4QDX80_start_5/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/DQU7X4QDX80_start_5.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/DQU7X4QDX80_start_5/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>DAVIS - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/DQU7X4QDX80_start_5.jpg">
+            <source src="static/cvpr_videos/DAVIS/2018/DQU7X4QDX80_start_5/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/DQU7X4QDX80_start_5.jpg">
+            <source src="static/cvpr_videos/DAVIS/2018/DQU7X4QDX80_start_5/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/DQU7X4QDX80_start_5.jpg">
+            <source src="static/cvpr_videos/DAVIS/2018/DQU7X4QDX80_start_5/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div> -->
+
+
+<!-- 
+    <div class="box">
+      <h3 class="title is-5">Teen Wolf Too (1987)</h3>
+      <div class="mb-4">
+        <strong>Input Video</strong><br>
+        <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/DYAdSce8Rd0_start_90.jpg">
+          <source src="static/cvpr_videos/original/2018/DYAdSce8Rd0_start_90.mp4" type="video/mp4">
+        </video>
+        
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/DYAdSce8Rd0_start_90.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/DYAdSce8Rd0_start_90/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/DYAdSce8Rd0_start_90.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/DYAdSce8Rd0_start_90/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/DYAdSce8Rd0_start_90.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/DYAdSce8Rd0_start_90/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>DAVIS - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/DYAdSce8Rd0_start_90.jpg">
+            <source src="static/cvpr_videos/DAVIS/2018/DYAdSce8Rd0_start_90/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/DYAdSce8Rd0_start_90.jpg">
+            <source src="static/cvpr_videos/DAVIS/2018/DYAdSce8Rd0_start_90/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/DYAdSce8Rd0_start_90.jpg">
+            <source src="static/cvpr_videos/DAVIS/2018/DYAdSce8Rd0_start_90/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+ -->
+
+
+    <div class="box">
+      <h3 class="title is-5">Mission: Impossible - Rogue Nation (2015)</h3>
+      <div class="mb-4">
+        <strong>Input Video</strong><br>
+        <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/elpUGB9Ap1Y_start_33.jpg">
+          <source src="static/cvpr_videos/original/2018/elpUGB9Ap1Y_start_33.mp4" type="video/mp4">
+        </video>
+        
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/elpUGB9Ap1Y_start_33.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/elpUGB9Ap1Y_start_33/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/elpUGB9Ap1Y_start_33.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/elpUGB9Ap1Y_start_33/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/elpUGB9Ap1Y_start_33.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/elpUGB9Ap1Y_start_33/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>DAVIS - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/elpUGB9Ap1Y_start_33.jpg">
+            <source src="static/cvpr_videos/DAVIS/2018/elpUGB9Ap1Y_start_33/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/elpUGB9Ap1Y_start_33.jpg">
+            <source src="static/cvpr_videos/DAVIS/2018/elpUGB9Ap1Y_start_33/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/elpUGB9Ap1Y_start_33.jpg">
+            <source src="static/cvpr_videos/DAVIS/2018/elpUGB9Ap1Y_start_33/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+
+
+<!-- 
+    <div class="box">
+      <h3 class="title is-5">Truth or Dare (2018)</h3>
+      <div class="mb-4">
+        <strong>Input Video</strong><br>
+        <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/FgUKDQA1qFg_start_68.jpg">
+          <source src="static/cvpr_videos/original/2018/FgUKDQA1qFg_start_68.mp4" type="video/mp4">
+        </video>
+        
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/FgUKDQA1qFg_start_68.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/FgUKDQA1qFg_start_68/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/FgUKDQA1qFg_start_68.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/FgUKDQA1qFg_start_68/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/FgUKDQA1qFg_start_68.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/FgUKDQA1qFg_start_68/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>DAVIS - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/FgUKDQA1qFg_start_68.jpg">
+            <source src="static/cvpr_videos/DAVIS/2018/FgUKDQA1qFg_start_68/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/FgUKDQA1qFg_start_68.jpg">
+            <source src="static/cvpr_videos/DAVIS/2018/FgUKDQA1qFg_start_68/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/FgUKDQA1qFg_start_68.jpg">
+            <source src="static/cvpr_videos/DAVIS/2018/FgUKDQA1qFg_start_68/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+ -->
+
+<!-- 
+    <div class="box">
+      <h3 class="title is-5">S.W.A.T (2003)</h3>
+      <div class="mb-4">
+        <strong>Input Video</strong><br>
+        <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/G61d-lcbLT4_start_49.jpg">
+          <source src="static/cvpr_videos/original/2018/G61d-lcbLT4_start_49.mp4" type="video/mp4">
+        </video>
+        
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/G61d-lcbLT4_start_49.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/G61d-lcbLT4_start_49/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/G61d-lcbLT4_start_49.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/G61d-lcbLT4_start_49/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/G61d-lcbLT4_start_49.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/G61d-lcbLT4_start_49/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>DAVIS - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/G61d-lcbLT4_start_49.jpg">
+            <source src="static/cvpr_videos/DAVIS/2018/G61d-lcbLT4_start_49/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/G61d-lcbLT4_start_49.jpg">
+            <source src="static/cvpr_videos/DAVIS/2018/G61d-lcbLT4_start_49/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/G61d-lcbLT4_start_49.jpg">
+            <source src="static/cvpr_videos/DAVIS/2018/G61d-lcbLT4_start_49/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div> -->
+
+
+<!-- 
+    <div class="box">
+      <h3 class="title is-5">Breaking In (2018)</h3>
+      <div class="mb-4">
+        <strong>Input Video</strong><br>
+        <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/GbZZ2TDY5dA_start_26.jpg">
+          <source src="static/cvpr_videos/original/2018/GbZZ2TDY5dA_start_26.mp4" type="video/mp4">
+        </video>
+        
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/GbZZ2TDY5dA_start_26.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/GbZZ2TDY5dA_start_26/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/GbZZ2TDY5dA_start_26.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/GbZZ2TDY5dA_start_26/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/GbZZ2TDY5dA_start_26.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/GbZZ2TDY5dA_start_26/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>DAVIS - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/GbZZ2TDY5dA_start_26.jpg">
+            <source src="static/cvpr_videos/DAVIS/2018/GbZZ2TDY5dA_start_26/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/GbZZ2TDY5dA_start_26.jpg">
+            <source src="static/cvpr_videos/DAVIS/2018/GbZZ2TDY5dA_start_26/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/GbZZ2TDY5dA_start_26.jpg">
+            <source src="static/cvpr_videos/DAVIS/2018/GbZZ2TDY5dA_start_26/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+ -->
+
+<!-- 
+    <div class="box">
+      <h3 class="title is-5">Mission: Impossible - Rogue Nation (2015)</h3>
+      <div class="mb-4">
+        <strong>Input Video</strong><br>
+        <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/GSrtUVzdt6M_start_0.jpg">
+          <source src="static/cvpr_videos/original/2018/GSrtUVzdt6M_start_0.mp4" type="video/mp4">
+        </video>
+        
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/GSrtUVzdt6M_start_0.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/GSrtUVzdt6M_start_0/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/GSrtUVzdt6M_start_0.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/GSrtUVzdt6M_start_0/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/GSrtUVzdt6M_start_0.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/GSrtUVzdt6M_start_0/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>DAVIS - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/GSrtUVzdt6M_start_0.jpg">
+            <source src="static/cvpr_videos/DAVIS/2018/GSrtUVzdt6M_start_0/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/GSrtUVzdt6M_start_0.jpg">
+            <source src="static/cvpr_videos/DAVIS/2018/GSrtUVzdt6M_start_0/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/GSrtUVzdt6M_start_0.jpg">
+            <source src="static/cvpr_videos/DAVIS/2018/GSrtUVzdt6M_start_0/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div> -->
+
+
+<!-- 
+    <div class="box">
+      <h3 class="title is-5">In the Land of Women (2007)</h3>
+      <div class="mb-4">
+        <strong>Input Video</strong><br>
+        <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/GwtcfnmV68I_start_1.jpg">
+          <source src="static/cvpr_videos/original/2018/GwtcfnmV68I_start_1.mp4" type="video/mp4">
+        </video>
+        
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/GwtcfnmV68I_start_1.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/GwtcfnmV68I_start_1/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/GwtcfnmV68I_start_1.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/GwtcfnmV68I_start_1/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/GwtcfnmV68I_start_1.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/GwtcfnmV68I_start_1/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>DAVIS - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/GwtcfnmV68I_start_1.jpg">
+            <source src="static/cvpr_videos/DAVIS/2018/GwtcfnmV68I_start_1/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/GwtcfnmV68I_start_1.jpg">
+            <source src="static/cvpr_videos/DAVIS/2018/GwtcfnmV68I_start_1/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/GwtcfnmV68I_start_1.jpg">
+            <source src="static/cvpr_videos/DAVIS/2018/GwtcfnmV68I_start_1/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div> -->
+
+
+
+    <div class="box">
+      <h3 class="title is-5">Darkest Hour (2017)</h3>
+      <div class="mb-4">
+        <strong>Input Video</strong><br>
+        <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/htHKbsUKDDw_start_58.jpg">
+          <source src="static/cvpr_videos/original/2018/htHKbsUKDDw_start_58.mp4" type="video/mp4">
+        </video>
+        
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/htHKbsUKDDw_start_58.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/htHKbsUKDDw_start_58/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/htHKbsUKDDw_start_58.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/htHKbsUKDDw_start_58/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/htHKbsUKDDw_start_58.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/htHKbsUKDDw_start_58/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>DAVIS - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/htHKbsUKDDw_start_58.jpg">
+            <source src="static/cvpr_videos/DAVIS/2018/htHKbsUKDDw_start_58/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/htHKbsUKDDw_start_58.jpg">
+            <source src="static/cvpr_videos/DAVIS/2018/htHKbsUKDDw_start_58/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/htHKbsUKDDw_start_58.jpg">
+            <source src="static/cvpr_videos/DAVIS/2018/htHKbsUKDDw_start_58/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+
+
+<!-- 
+    <div class="box">
+      <h3 class="title is-5">Jumanji: Welcome to the Jungle (2017)</h3>
+      <div class="mb-4">
+        <strong>Input Video</strong><br>
+        <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/iKduvC0uNs8_start_150.jpg">
+          <source src="static/cvpr_videos/original/2018/iKduvC0uNs8_start_150.mp4" type="video/mp4">
+        </video>
+        
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/iKduvC0uNs8_start_150.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/iKduvC0uNs8_start_150/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/iKduvC0uNs8_start_150.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/iKduvC0uNs8_start_150/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/iKduvC0uNs8_start_150.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/iKduvC0uNs8_start_150/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>DAVIS - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/iKduvC0uNs8_start_150.jpg">
+            <source src="static/cvpr_videos/DAVIS/2018/iKduvC0uNs8_start_150/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/iKduvC0uNs8_start_150.jpg">
+            <source src="static/cvpr_videos/DAVIS/2018/iKduvC0uNs8_start_150/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/iKduvC0uNs8_start_150.jpg">
+            <source src="static/cvpr_videos/DAVIS/2018/iKduvC0uNs8_start_150/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+ -->
+
+<!-- 
+    <div class="box">
+      <h3 class="title is-5">Transformers: The Last Knight (2017)</h3>
+      <div class="mb-4">
+        <strong>Input Video</strong><br>
+        <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/KJtmyW2urUk_start_7.jpg">
+          <source src="static/cvpr_videos/original/2018/KJtmyW2urUk_start_7.mp4" type="video/mp4">
+        </video>
+        
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/KJtmyW2urUk_start_7.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/KJtmyW2urUk_start_7/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/KJtmyW2urUk_start_7.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/KJtmyW2urUk_start_7/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/KJtmyW2urUk_start_7.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/KJtmyW2urUk_start_7/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>DAVIS - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/KJtmyW2urUk_start_7.jpg">
+            <source src="static/cvpr_videos/DAVIS/2018/KJtmyW2urUk_start_7/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/KJtmyW2urUk_start_7.jpg">
+            <source src="static/cvpr_videos/DAVIS/2018/KJtmyW2urUk_start_7/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/KJtmyW2urUk_start_7.jpg">
+            <source src="static/cvpr_videos/DAVIS/2018/KJtmyW2urUk_start_7/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div> -->
+
+
+<!-- 
+    <div class="box">
+      <h3 class="title is-5">Jurassic World: Fallen Kingdom (2018)</h3>
+      <div class="mb-4">
+        <strong>Input Video</strong><br>
+        <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/NFj82X1Fdh4_start_9.jpg">
+          <source src="static/cvpr_videos/original/2018/NFj82X1Fdh4_start_9.mp4" type="video/mp4">
+        </video>
+        
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/NFj82X1Fdh4_start_9.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/NFj82X1Fdh4_start_9/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/NFj82X1Fdh4_start_9.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/NFj82X1Fdh4_start_9/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/NFj82X1Fdh4_start_9.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/NFj82X1Fdh4_start_9/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>DAVIS - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/NFj82X1Fdh4_start_9.jpg">
+            <source src="static/cvpr_videos/DAVIS/2018/NFj82X1Fdh4_start_9/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/NFj82X1Fdh4_start_9.jpg">
+            <source src="static/cvpr_videos/DAVIS/2018/NFj82X1Fdh4_start_9/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/NFj82X1Fdh4_start_9.jpg">
+            <source src="static/cvpr_videos/DAVIS/2018/NFj82X1Fdh4_start_9/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+ -->
+
+<!-- 
+    <div class="box">
+      <h3 class="title is-5">The Dark Tower (2017)</h3>
+      <div class="mb-4">
+        <strong>Input Video</strong><br>
+        <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/oIlpo2mj_qk_start_89.jpg">
+          <source src="static/cvpr_videos/original/2018/oIlpo2mj_qk_start_89.mp4" type="video/mp4">
+        </video>
+        
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/oIlpo2mj_qk_start_89.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/oIlpo2mj_qk_start_89/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/oIlpo2mj_qk_start_89.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/oIlpo2mj_qk_start_89/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/oIlpo2mj_qk_start_89.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/oIlpo2mj_qk_start_89/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>DAVIS - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/oIlpo2mj_qk_start_89.jpg">
+            <source src="static/cvpr_videos/DAVIS/2018/oIlpo2mj_qk_start_89/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/oIlpo2mj_qk_start_89.jpg">
+            <source src="static/cvpr_videos/DAVIS/2018/oIlpo2mj_qk_start_89/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/oIlpo2mj_qk_start_89.jpg">
+            <source src="static/cvpr_videos/DAVIS/2018/oIlpo2mj_qk_start_89/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+ -->
+
+<!-- 
+    <div class="box">
+      <h3 class="title is-5">The Perfect Guy (2015)</h3>
+      <div class="mb-4">
+        <strong>Input Video</strong><br>
+        <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/QP_o0yWJYKM_start_172.jpg">
+          <source src="static/cvpr_videos/original/2018/QP_o0yWJYKM_start_172.mp4" type="video/mp4">
+        </video>
+        
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/QP_o0yWJYKM_start_172.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/QP_o0yWJYKM_start_172/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/QP_o0yWJYKM_start_172.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/QP_o0yWJYKM_start_172/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/QP_o0yWJYKM_start_172.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/QP_o0yWJYKM_start_172/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>DAVIS - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/QP_o0yWJYKM_start_172.jpg">
+            <source src="static/cvpr_videos/DAVIS/2018/QP_o0yWJYKM_start_172/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/QP_o0yWJYKM_start_172.jpg">
+            <source src="static/cvpr_videos/DAVIS/2018/QP_o0yWJYKM_start_172/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/QP_o0yWJYKM_start_172.jpg">
+            <source src="static/cvpr_videos/DAVIS/2018/QP_o0yWJYKM_start_172/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div> -->
+
+
+<!-- 
+    <div class="box">
+      <h3 class="title is-5">American Made (2017)</h3>
+      <div class="mb-4">
+        <strong>Input Video</strong><br>
+        <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/SxJcAxTBKOk_start_0.jpg">
+          <source src="static/cvpr_videos/original/2018/SxJcAxTBKOk_start_0.mp4" type="video/mp4">
+        </video>
+        
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/SxJcAxTBKOk_start_0.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/SxJcAxTBKOk_start_0/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/SxJcAxTBKOk_start_0.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/SxJcAxTBKOk_start_0/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/SxJcAxTBKOk_start_0.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/SxJcAxTBKOk_start_0/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>DAVIS - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/SxJcAxTBKOk_start_0.jpg">
+            <source src="static/cvpr_videos/DAVIS/2018/SxJcAxTBKOk_start_0/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/SxJcAxTBKOk_start_0.jpg">
+            <source src="static/cvpr_videos/DAVIS/2018/SxJcAxTBKOk_start_0/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/SxJcAxTBKOk_start_0.jpg">
+            <source src="static/cvpr_videos/DAVIS/2018/SxJcAxTBKOk_start_0/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div> -->
+
+
+<!-- 
+    <div class="box">
+      <h3 class="title is-5">The Divergent Series: Allegiant (2016)</h3>
+      <div class="mb-4">
+        <strong>Input Video</strong><br>
+        <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/tlSscKeO9Cc_start_24.jpg">
+          <source src="static/cvpr_videos/original/2018/tlSscKeO9Cc_start_24.mp4" type="video/mp4">
+        </video>
+        
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/tlSscKeO9Cc_start_24.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/tlSscKeO9Cc_start_24/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/tlSscKeO9Cc_start_24.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/tlSscKeO9Cc_start_24/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/tlSscKeO9Cc_start_24.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/tlSscKeO9Cc_start_24/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>DAVIS - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/tlSscKeO9Cc_start_24.jpg">
+            <source src="static/cvpr_videos/DAVIS/2018/tlSscKeO9Cc_start_24/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/tlSscKeO9Cc_start_24.jpg">
+            <source src="static/cvpr_videos/DAVIS/2018/tlSscKeO9Cc_start_24/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/tlSscKeO9Cc_start_24.jpg">
+            <source src="static/cvpr_videos/DAVIS/2018/tlSscKeO9Cc_start_24/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div> -->
+
+
+<!-- 
+    <div class="box">
+      <h3 class="title is-5">Jumanji: Welcome to the Jungle (2017)</h3>
+      <div class="mb-4">
+        <strong>Input Video</strong><br>
+        <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/V3Gnq8VFai4_start_163.jpg">
+          <source src="static/cvpr_videos/original/2018/V3Gnq8VFai4_start_163.mp4" type="video/mp4">
+        </video>
+        
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/V3Gnq8VFai4_start_163.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/V3Gnq8VFai4_start_163/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/V3Gnq8VFai4_start_163.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/V3Gnq8VFai4_start_163/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/V3Gnq8VFai4_start_163.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/V3Gnq8VFai4_start_163/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>DAVIS - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/V3Gnq8VFai4_start_163.jpg">
+            <source src="static/cvpr_videos/DAVIS/2018/V3Gnq8VFai4_start_163/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/V3Gnq8VFai4_start_163.jpg">
+            <source src="static/cvpr_videos/DAVIS/2018/V3Gnq8VFai4_start_163/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/V3Gnq8VFai4_start_163.jpg">
+            <source src="static/cvpr_videos/DAVIS/2018/V3Gnq8VFai4_start_163/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+ -->
+
+<!-- 
+    <div class="box">
+      <h3 class="title is-5">xXx: Return of Xander Cage (2017)</h3>
+      <div class="mb-4">
+        <strong>Input Video</strong><br>
+        <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/vq6ofw0hqkU_start_45.jpg">
+          <source src="static/cvpr_videos/original/2018/vq6ofw0hqkU_start_45.mp4" type="video/mp4">
+        </video>
+        
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/vq6ofw0hqkU_start_45.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/vq6ofw0hqkU_start_45/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/vq6ofw0hqkU_start_45.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/vq6ofw0hqkU_start_45/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/vq6ofw0hqkU_start_45.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/vq6ofw0hqkU_start_45/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>DAVIS - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/vq6ofw0hqkU_start_45.jpg">
+            <source src="static/cvpr_videos/DAVIS/2018/vq6ofw0hqkU_start_45/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/vq6ofw0hqkU_start_45.jpg">
+            <source src="static/cvpr_videos/DAVIS/2018/vq6ofw0hqkU_start_45/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/vq6ofw0hqkU_start_45.jpg">
+            <source src="static/cvpr_videos/DAVIS/2018/vq6ofw0hqkU_start_45/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div> -->
+
+
+<!-- 
+    <div class="box">
+      <h3 class="title is-5">Jumanji: Welcome to the Jungle (2017)</h3>
+      <div class="mb-4">
+        <strong>Input Video</strong><br>
+        <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/w5yJV_TKOWg_start_30.jpg">
+          <source src="static/cvpr_videos/original/2018/w5yJV_TKOWg_start_30.mp4" type="video/mp4">
+        </video>
+        
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/w5yJV_TKOWg_start_30.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/w5yJV_TKOWg_start_30/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/w5yJV_TKOWg_start_30.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/w5yJV_TKOWg_start_30/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/w5yJV_TKOWg_start_30.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/w5yJV_TKOWg_start_30/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>DAVIS - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/w5yJV_TKOWg_start_30.jpg">
+            <source src="static/cvpr_videos/DAVIS/2018/w5yJV_TKOWg_start_30/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/w5yJV_TKOWg_start_30.jpg">
+            <source src="static/cvpr_videos/DAVIS/2018/w5yJV_TKOWg_start_30/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/w5yJV_TKOWg_start_30.jpg">
+            <source src="static/cvpr_videos/DAVIS/2018/w5yJV_TKOWg_start_30/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+ -->
+
+
+    <div class="box">
+      <h3 class="title is-5">The Divergent Series: Allegiant (2016)</h3>
+      <div class="mb-4">
+        <strong>Input Video</strong><br>
+        <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/6O_dprt5rts_start_0.jpg">
+          <source src="static/cvpr_videos/original/2018/6O_dprt5rts_start_0.mp4" type="video/mp4">
+        </video>
+        
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/6O_dprt5rts_start_0.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/6O_dprt5rts_start_0/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/6O_dprt5rts_start_0.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/6O_dprt5rts_start_0/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>Ours - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/6O_dprt5rts_start_0.jpg">
+            <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/6O_dprt5rts_start_0/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered"><b>DAVIS - Speech</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/6O_dprt5rts_start_0.jpg">
+            <source src="static/cvpr_videos/DAVIS/2018/6O_dprt5rts_start_0/speech.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - SFX</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/6O_dprt5rts_start_0.jpg">
+            <source src="static/cvpr_videos/DAVIS/2018/6O_dprt5rts_start_0/sfx.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column has-text-centered"><b>DAVIS - Music</b><br>
+          <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/6O_dprt5rts_start_0.jpg">
+            <source src="static/cvpr_videos/DAVIS/2018/6O_dprt5rts_start_0/music.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</section>
+<!-- End Separation Results -->
+
+
+<!--BibTex citation -->
+  <!-- <section class="section" id="BibTeX">
+    <div class="container is-max-desktop content">
+      <h2 class="title">BibTeX</h2>
+      <pre><code>BibTex Code Here</code></pre>
+    </div>
+</section> -->
+<!--End BibTex citation -->
+
+<section class="section" id="References">
+  <div class="container is-max-desktop content">
+    <h2 class="title is-4">References</h2>
+    <ol>
+      <li>
+        M. Bain, A. Nagrani, A. Brown, & A. Zisserman. 
+        <a href="https://openaccess.thecvf.com/content/ACCV2020/papers/Bain_Condensed_Movies_Story_Based_Retrieval_with_Contextual_Embeddings_ACCV_2020_paper.pdf" target="_blank">
+        Condensed Movies: Story Based Retrieval with Contextual Embeddings</a>. 
+        <i>Asian Conference on Computer Vision (ACCV), 2020.</i>
+      </li>
+      <li>
+        K. N. Watcharasupat et al. 
+        <a href="https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=10342812" target="_blank">
+        A Generalized Bandsplit Neural Network for Cinematic Audio Source Separation</a>. 
+        <i>IEEE Open Journal of Signal Processing, 2023.</i>
+      </li>
+      <li>
+        D. Petermann, G. Wichern, Z. Q. Wang, & J. Le Roux. 
+        <a href="https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=9746005" target="_blank">
+        The Cocktail Fork Problem: Three-Stem Audio Separation for Real-World Soundtracks</a>. 
+        <i>ICASSP, 2022.</i>
+      </li>
+    </ol>
+  </div>
+</section>
+
+
+  <footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+
+          <p>
+            This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a> which was adopted from the <a href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.
+            You are free to borrow the source code of this website, we just ask that you link back to this page in the footer. <br> This website is licensed under a <a rel="license"  href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Statcounter tracking code -->
+  
+<!-- You can add a tracker to track page visits by creating an account at statcounter.com -->
+
+    <!-- End of Statcounter Code -->
+
+  </body>
+  </html>
+
+

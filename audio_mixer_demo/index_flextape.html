@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive CASS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0f172a;      /* Dark slate background */
+            --card-bg: #1e293b;       /* Slightly lighter slate for the card */
+            --text-main: #f8fafc;     /* Near white for headings */
+            --text-muted: #94a3b8;    /* Muted grey for descriptions */
+            --accent: #38bdf8;        /* Sky blue accent */
+            --border-color: #334155;
+        }
+
+        body { 
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            text-align: center; 
+            font-family: 'Inter', sans-serif; 
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Stylized Header */
+        h1 { 
+            font-weight: 800; 
+            font-size: 2.5rem;
+            margin-bottom: 5px;
+            background: linear-gradient(to right, #38bdf8, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        h3 {
+            font-weight: 400;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+            font-size: 1rem;
+        }
+
+        /* Main Container / Card */
+        #container { 
+            background-color: var(--card-bg);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--border-color);
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+        }
+
+        /* Media Layout */
+        #content { 
+            display: flex; 
+            flex-wrap: wrap;
+            align-items: center; 
+            justify-content: center;
+            gap: 30px; 
+            margin-bottom: 20px;
+        }
+
+        /* Video Styling */
+        video { 
+            border-radius: 12px; 
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            background-color: #000; /* In case of video load delay */
+        }
+
+        /* Canvas Styling */
+        canvas { 
+            background-color: var(--bg-color);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            box-shadow: inset 0 4px 6px rgba(0,0,0,0.2);
+            cursor: crosshair;
+            transition: border-color 0.3s ease;
+        }
+
+        canvas:hover {
+            border-color: var(--accent);
+        }
+
+        /* Instructions Text */
+        #triangle-description {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-top: 10px;
+            background: rgba(15, 23, 42, 0.5);
+            padding: 12px 20px;
+            border-radius: 8px;
+        }
+        
+        .highlight {
+            color: var(--accent);
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <h1>Interactive CASS</h1>
+    <h3>This video presents the remixed result of separated tracks from AV-CASS.</h3>
+    
+    <div id="container">
+        <div id="content">
+            <video id="video" width="320" height="240" loop muted playsinline>
+                <source src="flextape/video.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <canvas id="triangleCanvas" width="220" height="220"></canvas>
+        </div>
+        <p id="triangle-description">
+            <span class="highlight">Click on the triangle</span> to start the video and audio.<br> 
+            Move your cursor inside the triangle to mix the audio stems.
+        </p>
+    </div>
+
+    <audio id="audio1" src="flextape/ours/speech.wav" loop></audio>
+    <audio id="audio2" src="flextape/ours/sfx.wav" loop></audio>
+    <audio id="audio3" src="flextape/ours/music.wav" loop></audio>
+
+    <script>
+        const canvas = document.getElementById("triangleCanvas");
+        const video = document.getElementById("video");
+        const audio1 = document.getElementById("audio1");
+        const audio2 = document.getElementById("audio2");
+        const audio3 = document.getElementById("audio3");
+        const ctx = canvas.getContext("2d");
+        
+        // Define the triangle vertices
+        const A = { x: 105, y: 40 };
+        const B = { x: 30, y: 170 };
+        const C = { x: 180, y: 170 };
+        let cursorPos = null;
+        let mediaStarted = false;
+        
+        function drawTriangle() {
+            // Clear the canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw Triangle Lines
+            ctx.beginPath();
+            ctx.moveTo(A.x, A.y);
+            ctx.lineTo(B.x, B.y);
+            ctx.lineTo(C.x, C.y);
+            ctx.closePath();
+            
+            // Style the triangle
+            ctx.strokeStyle = "rgba(148, 163, 184, 0.4)"; // Muted slate line
+            ctx.lineWidth = 2;
+            ctx.stroke();
+            
+            // Fill triangle with subtle gradient/color
+            ctx.fillStyle = "rgba(56, 189, 248, 0.05)"; 
+            ctx.fill();
+            
+            // Add labels for the triangle corners
+            ctx.font = "600 14px Inter, Arial";
+            ctx.fillStyle = "#f8fafc"; // White text
+            ctx.textAlign = "center";
+            
+            // Adjusted text positions for better alignment
+            ctx.fillText("Speech", A.x, A.y - 15);
+            ctx.fillText("SFX", B.x - 10, B.y + 25);
+            ctx.fillText("Music", C.x + 10, C.y + 25);
+            
+            // Draw Interactive Cursor Dot
+            if (cursorPos) {
+                ctx.beginPath();
+                ctx.arc(cursorPos.x, cursorPos.y, 8, 0, 2 * Math.PI);
+                
+                // Add a glow effect to the cursor
+                ctx.shadowColor = "#38bdf8";
+                ctx.shadowBlur = 10;
+                
+                ctx.fillStyle = "#38bdf8"; // Accent color
+                ctx.fill();
+                
+                // Reset shadow so it doesn't affect other elements next frame
+                ctx.shadowBlur = 0; 
+                
+                ctx.strokeStyle = "#ffffff";
+                ctx.lineWidth = 2;
+                ctx.stroke();
+            } else if (!mediaStarted) {
+                // Initial prompt state
+                ctx.font = "400 13px Inter";
+                ctx.fillStyle = "#94a3b8";
+                ctx.fillText("Click to Start", 105, 120);
+            }
+        }
+        
+        function barycentric(px, py, A, B, C) {
+            const denom = (B.y - C.y) * (A.x - C.x) + (C.x - B.x) * (A.y - C.y);
+            const w1 = ((B.y - C.y) * (px - C.x) + (C.x - B.x) * (py - C.y)) / denom;
+            const w2 = ((C.y - A.y) * (px - C.x) + (A.x - C.x) * (py - C.y)) / denom;
+            const w3 = 1 - w1 - w2;
+            return { w1, w2, w3 };
+        }
+        
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const gainNodes = [
+            audioCtx.createGain(),
+            audioCtx.createGain(),
+            audioCtx.createGain()
+        ];
+        
+        function setupAudio(audio, gainNode) {
+            const source = audioCtx.createMediaElementSource(audio);
+            source.connect(gainNode).connect(audioCtx.destination);
+        }
+        
+        function startMedia() {
+            if (!mediaStarted) {
+                audioCtx.resume().then(() => {
+                    [audio1, audio2, audio3].forEach((audio, index) => {
+                        setupAudio(audio, gainNodes[index]);
+                        audio.play();
+                    });
+                    video.play();
+                    mediaStarted = true;
+                    drawTriangle(); // Redraw to remove "Click to Start" text
+                });
+            }
+        }
+        
+        canvas.addEventListener("click", startMedia);
+        
+        canvas.addEventListener("mousemove", (event) => {
+            if (!mediaStarted) return;
+            
+            const rect = canvas.getBoundingClientRect();
+            const x = event.clientX - rect.left;
+            const y = event.clientY - rect.top;
+            const { w1, w2, w3 } = barycentric(x, y, A, B, C);
+            
+            // Only update if cursor is inside (or very close to) the triangle
+            if (w1 >= -0.05 && w2 >= -0.05 && w3 >= -0.05) {
+                const threshold = 0.1;
+
+                gainNodes[0].gain.value = (w2 < threshold && w3 < threshold) ? 1 : Math.max(0, w1);
+                gainNodes[1].gain.value = (w1 < threshold && w3 < threshold) ? 1 : Math.max(0, w2);
+                gainNodes[2].gain.value = (w1 < threshold && w2 < threshold) ? 1 : Math.max(0, w3);
+                
+                cursorPos = { x, y };
+            } else {
+                cursorPos = null;
+            }
+            // Use requestAnimationFrame for smoother rendering
+            requestAnimationFrame(drawTriangle);
+        });
+        
+        // Initial draw
+        drawTriangle();
+    </script>
+</body>
+</html>
