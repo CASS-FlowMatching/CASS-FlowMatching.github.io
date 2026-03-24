@@ -56,20 +56,24 @@
             <h1 class="title is-1 publication-title">Cinematic Audio Source Separation<br>Using Visual Cues</h1>
             <div class="is-size-5 publication-authors">
               <!-- Paper authors -->
+              <!-- <span class="author-block"> -->
+                <!-- <a target="_blank">Anonymous Authors</a></span> -->
               <span class="author-block">
-                <a target="_blank">Anonymous Authors</a></span>
-              <!-- <span class="author-block">
-                <a href="FIRST AUTHOR PERSONAL LINK" target="_blank">First Author</a><sup>*</sup>,</span>
+                <a href="https://pantheon5100.github.io/" target="_blank">Kang Zhang</a><sup>*</sup>,</span>
                 <span class="author-block">
-                  <a href="SECOND AUTHOR PERSONAL LINK" target="_blank">Second Author</a><sup>*</sup>,</span>
+                  <a href="https://leesyy.github.io/" target="_blank">Suyeon Lee</a><sup>*</sup>,</span>
                   <span class="author-block">
-                    <a href="THIRD AUTHOR PERSONAL LINK" target="_blank">Third Author</a>
-                  </span> -->
+                    <a href="https://ardasnck.github.io/" target="_blank">Arda Senocak</a><sup>+</sup>,</span>
+                  <span class="author-block">
+                    <a href="https://mm.kaist.ac.kr/joon/" target="_blank">Joon Son Chung</a><sup>+</sup>,</span>
+                  </span>
+                  </span>
                   </div>
 
                   <div class="is-size-5 publication-authors">
-                    <span class="author-block">Anonymous Submission CVPR 2026</span>
-                    <!-- <span class="eql-cntrb"><small><br><sup>*</sup>Indicates Equal Contribution</small></span> -->
+                    <span class="author-block">CVPR 2026</span>
+                    <span class="eql-cntrb"><small><br><sup>*</sup>Indicates Equal Contribution</small></span>
+                    <span class="eql-cntrb"><small><br><sup>+</sup>Indicates Corresponding Author</small></span>
                   </div>
 
                   <div class="column has-text-centered">
@@ -159,6 +163,23 @@
 </section>
 <!-- End paper abstract -->
 
+<!-- Interactive mixer demos -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-four-fifths has-text-centered">
+        <h2 class="title is-4">Interactive Mixer Demos</h2>
+        <p class="mb-4">Explore the audio mixer demos for each sample:</p>
+        <div class="buttons is-centered">
+          <a href="audio_mixer_demo/index_flextape.html" class="button is-link is-light">Flextape Demo</a>
+          <a href="audio_mixer_demo/index_ironman.html" class="button is-link is-light">Ironman Demo</a>
+          <a href="audio_mixer_demo/index_spiderman.html" class="button is-link is-light">Spiderman Demo</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- <div class="has-text-centered mt-5">
   <a href="all_videos.html" class="button is-link is-medium">
     🎬 View All Videos
@@ -168,7 +189,12 @@
 <section class="section hero">
   <div class="container is-max-desktop">
     <h2 class="title is-3 has-text-centered">Separation Results</h2>
+    <div class="buttons is-centered mb-4">
+      <button id="toggle-cass-models" class="button is-link" type="button">Comparison with CASS models</button>
+      <button id="toggle-davis-flow" class="button is-link is-light" type="button">Comparison with DAVIS-Flow</button>
+    </div>
 
+    <div id="comparison-cass-models">
     <div class="content has-text-justified">
       <h3 class="title is-5">Loading Notice</h3>
 
@@ -2132,7 +2158,21 @@
         </div>
       </div>
     </div>
+    </div>
 
+    <div id="comparison-davis-flow" style="display: none;">
+      <div class="content has-text-justified">
+        <h3 class="title is-5">Loading Notice</h3>
+
+        <div class="notification is-warning">
+          ⚠️ <strong>Please click the video to load and play.</strong>
+          The video length shows as "0:00" because the video is not loaded yet (preload is off). This does NOT mean the video is broken or missing.
+        </div>
+      </div>
+      <div id="davis-flow-content">
+        <div class="notification is-info is-light">Loading DAVIS-Flow comparison blocks...</div>
+      </div>
+    </div>
 
   </div>
 </section>
@@ -2198,6 +2238,68 @@
 <!-- You can add a tracker to track page visits by creating an account at statcounter.com -->
 
     <!-- End of Statcounter Code -->
+
+  <script>
+    (function () {
+      const cassButton = document.getElementById("toggle-cass-models");
+      const davisButton = document.getElementById("toggle-davis-flow");
+      const cassSection = document.getElementById("comparison-cass-models");
+      const davisSection = document.getElementById("comparison-davis-flow");
+      const davisContent = document.getElementById("davis-flow-content");
+      let davisLoaded = false;
+
+      function setActive(button, isActive) {
+        button.classList.toggle("is-light", !isActive);
+      }
+
+      async function loadDavisBlocksOnce() {
+        if (davisLoaded) return;
+
+        try {
+          const response = await fetch("generated_blocks_davis.html"); 
+          if (!response.ok) throw new Error("Failed to load generated_blocks_davis.html");
+
+          const html = await response.text();
+          const parser = new DOMParser();
+          const davisDoc = parser.parseFromString(html, "text/html");
+          const davisBoxes = davisDoc.querySelectorAll("section.section.hero .box");
+
+          davisContent.innerHTML = "";
+
+          if (!davisBoxes.length) {
+            davisContent.innerHTML =
+              '<div class="notification is-danger is-light">Could not find DAVIS-Flow comparison blocks.</div>';
+            return;
+          }
+
+          davisBoxes.forEach((box) => {
+            davisContent.appendChild(box.cloneNode(true));
+          });
+
+          davisLoaded = true;
+        } catch (error) {
+          davisContent.innerHTML =
+            '<div class="notification is-danger is-light">Failed to load DAVIS-Flow comparison blocks.</div>';
+          console.error(error);
+        }
+      }
+
+      cassButton.addEventListener("click", () => {
+        cassSection.style.display = "";
+        davisSection.style.display = "none";
+        setActive(cassButton, true);
+        setActive(davisButton, false);
+      });
+
+      davisButton.addEventListener("click", async () => {
+        cassSection.style.display = "none";
+        davisSection.style.display = "";
+        setActive(cassButton, false);
+        setActive(davisButton, true);
+        await loadDavisBlocksOnce();
+      });
+    })();
+  </script>
 
   </body>
   </html>
