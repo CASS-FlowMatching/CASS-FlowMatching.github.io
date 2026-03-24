@@ -2273,6 +2273,29 @@
         button.setAttribute("aria-pressed", isActive ? "true" : "false");
       }
 
+      function applyModelLabelColors(root) {
+        const scope = root || document;
+        const columns = scope.querySelectorAll(".box .column.has-text-centered");
+
+        columns.forEach((column) => {
+          const label = column.querySelector("b");
+          if (!label) return;
+
+          const text = label.textContent.toLowerCase();
+          column.classList.remove("model-ours", "model-davis", "model-bandit", "model-mrx");
+
+          if (text.includes("ours")) {
+            column.classList.add("model-ours");
+          } else if (text.includes("davis")) {
+            column.classList.add("model-davis");
+          } else if (text.includes("bandit")) {
+            column.classList.add("model-bandit");
+          } else if (text.includes("mrx")) {
+            column.classList.add("model-mrx");
+          }
+        });
+      }
+
       async function loadDavisBlocksOnce() {
         if (davisLoaded) return;
 
@@ -2297,6 +2320,7 @@
             davisContent.appendChild(box.cloneNode(true));
           });
 
+          applyModelLabelColors(davisContent);
           davisLoaded = true;
         } catch (error) {
           davisContent.innerHTML =
@@ -2324,6 +2348,7 @@
         await loadDavisBlocksOnce();
       });
 
+      applyModelLabelColors(document);
       setActive(cassButton, true);
       setActive(davisButton, false);
     })();
