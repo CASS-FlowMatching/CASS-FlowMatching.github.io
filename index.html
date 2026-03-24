@@ -48,7 +48,7 @@
 <body>
 
 
-  <section class="hero">
+  <section class="hero top-hero">
     <div class="hero-body">
       <div class="container is-max-desktop">
         <div class="columns is-centered">
@@ -147,14 +147,14 @@
 <!-- End teaser video -->
 
 <!-- Paper abstract -->
-<section class="section hero is-light">
+<section class="section hero is-light abstract-section">
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-            Cinematic Audio Source Separation (CASS) aims to decompose mixed film audio into speech, music, and sound effects, supporting applications like dubbing and remastering. Existing CASS approaches are audio-only, overlooking the inherently audio-visual nature of film, where sounds often align with visual cues. We present the first framework for audio-visual CASS (AV-CASS), leveraging visual context to enhance separation. Our method formulates CASS as a conditional generative modeling problem using conditional flow matching, enabling multimodal audio source separation. To address the lack of paired cinematic datasets with isolated sound sources, we introduce a training data synthesis pipeline that pairs in-the-wild audio and video streams (e.g., facial videos for speech, scene videos for effects) and develop a dedicated visual encoder for this dual-stream setup. Trained on synthetic data, our model generalizes effectively to real-world cinematic content and achieves strong performance on synthetic, real-world, and audio-only CASS benchmarks.
+            Cinematic Audio Source Separation (CASS) aims to decompose mixed film audio into speech, music, and sound effects, supporting applications like dubbing and remastering. Existing CASS approaches are audio-only, overlooking the inherently audio-visual nature of film, where sounds often align with visual cues. We present the first framework for audio-visual CASS <b>(AV-CASS)</b>, leveraging visual context to enhance separation. Our method formulates CASS as a conditional generative modeling problem using conditional flow matching, enabling multimodal audio source separation. To address the lack of paired cinematic datasets with isolated sound sources, we introduce a training data synthesis pipeline that pairs in-the-wild audio and video streams (e.g., facial videos for speech, scene videos for effects) and develop a dedicated visual encoder for this dual-stream setup. Trained on synthetic data, our model generalizes effectively to real-world cinematic content and achieves strong performance on synthetic, real-world, and audio-only CASS benchmarks.
           </p>
         </div>
       </div>
@@ -168,8 +168,8 @@
   <div class="container is-max-desktop">
     <div class="columns is-centered">
       <div class="column is-four-fifths has-text-centered mixer-demos-block">
-        <h2 class="title is-3">Interactive Mixer Demos</h2>
-        <p class="mb-4">Explore the audio mixer demos for each sample:</p>
+        <h2 class="title is-3">Interactive Mixer Demo with AV-CASS</h2>
+        <p class="mb-4">Explore the audio mixer demo with AV-CASS for each sample:</p>
         <div class="columns is-variable is-4 mixer-preview-grid">
           <div class="column">
             <a href="audio_mixer_demo/index_ironman.html" class="mixer-preview-card">
@@ -195,6 +195,8 @@
   </div>
 </section>
 
+<hr class="section-divider">
+
 <!-- <div class="has-text-centered mt-5">
   <a href="all_videos.html" class="button is-link is-medium">
     🎬 View All Videos
@@ -204,20 +206,26 @@
 <section class="section hero">
   <div class="container is-max-desktop">
     <h2 class="title is-3 has-text-centered">Separation Results</h2>
+    <div class="toggle-description-box mb-3">
+      <span class="toggle-description-icon">i</span>
+      <p class="toggle-description-text">
+        Use the toggle below to switch views: <strong>Comparison with CASS models</strong> compares AV-CASS against CASS models (BandIt [1] and MRX [2]), while <strong>Comparison with DAVIS-Flow</strong> compares AV-CASS against the audio-visual source separation model DAVIS-Flow [3].
+      </p>
+    </div>
     <div class="buttons is-centered mb-4 comparison-toggle-bar">
       <button id="toggle-cass-models" class="button is-link" type="button">Comparison with CASS models</button>
       <button id="toggle-davis-flow" class="button is-link is-light" type="button">Comparison with DAVIS-Flow</button>
     </div>
 
     <div id="comparison-cass-models" class="results-panel">
-    <div class="content has-text-justified">
+    <!-- <div class="content has-text-justified">
       <h3 class="title is-5">Loading Notice</h3>
 
       <div class="notification is-warning">
         ⚠️ <strong>Please click the video to load and play.</strong>  
         The video length shows as "0:00" because the video is not loaded yet (preload is off). This does NOT mean the video is broken or missing.
       </div>
-    </div>
+    </div> -->
 
 
 
@@ -232,17 +240,17 @@
       </div>
 
       <div class="columns">
-        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+        <div class="column has-text-centered"><b>AV-CASS (Ours) - Speech</b><br>
           <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/Ox8ZLF6cGM0_start_9.jpg">
             <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/Ox8ZLF6cGM0_start_9/speech.mp4" type="video/mp4">
           </video>
         </div>
-        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+        <div class="column has-text-centered"><b>AV-CASS (Ours) - SFX</b><br>
           <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/Ox8ZLF6cGM0_start_9.jpg">
             <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/Ox8ZLF6cGM0_start_9/sfx.mp4" type="video/mp4">
           </video>
         </div>
-        <div class="column has-text-centered"><b>Ours - Music</b><br>
+        <div class="column has-text-centered"><b>AV-CASS (Ours) - Music</b><br>
           <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/Ox8ZLF6cGM0_start_9.jpg">
             <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/Ox8ZLF6cGM0_start_9/music.mp4" type="video/mp4">
           </video>
@@ -299,17 +307,17 @@
       </div>
 
       <div class="columns">
-        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+        <div class="column has-text-centered"><b>AV-CASS (Ours) - Speech</b><br>
           <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/EKQPCiUSRAo_start_41.jpg">
             <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/EKQPCiUSRAo_start_41/speech.mp4" type="video/mp4">
           </video>
         </div>
-        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+        <div class="column has-text-centered"><b>AV-CASS (Ours) - SFX</b><br>
           <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/EKQPCiUSRAo_start_41.jpg">
             <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/EKQPCiUSRAo_start_41/sfx.mp4" type="video/mp4">
           </video>
         </div>
-        <div class="column has-text-centered"><b>Ours - Music</b><br>
+        <div class="column has-text-centered"><b>AV-CASS (Ours) - Music</b><br>
           <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/EKQPCiUSRAo_start_41.jpg">
             <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/EKQPCiUSRAo_start_41/music.mp4" type="video/mp4">
           </video>
@@ -365,17 +373,17 @@
       </div>
 
       <div class="columns">
-        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+        <div class="column has-text-centered"><b>AV-CASS (Ours) - Speech</b><br>
           <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/gj5ibYSz8C0_start_30.jpg">
             <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/gj5ibYSz8C0_start_30/speech.mp4" type="video/mp4">
           </video>
         </div>
-        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+        <div class="column has-text-centered"><b>AV-CASS (Ours) - SFX</b><br>
           <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/gj5ibYSz8C0_start_30.jpg">
             <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/gj5ibYSz8C0_start_30/sfx.mp4" type="video/mp4">
           </video>
         </div>
-        <div class="column has-text-centered"><b>Ours - Music</b><br>
+        <div class="column has-text-centered"><b>AV-CASS (Ours) - Music</b><br>
           <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/gj5ibYSz8C0_start_30.jpg">
             <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/gj5ibYSz8C0_start_30/music.mp4" type="video/mp4">
           </video>
@@ -432,17 +440,17 @@
       </div>
 
       <div class="columns">
-        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+        <div class="column has-text-centered"><b>AV-CASS (Ours) - Speech</b><br>
           <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/sL-9Khv7wa4_start_41.jpg">
             <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/sL-9Khv7wa4_start_41/speech.mp4" type="video/mp4">
           </video>
         </div>
-        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+        <div class="column has-text-centered"><b>AV-CASS (Ours) - SFX</b><br>
           <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/sL-9Khv7wa4_start_41.jpg">
             <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/sL-9Khv7wa4_start_41/sfx.mp4" type="video/mp4">
           </video>
         </div>
-        <div class="column has-text-centered"><b>Ours - Music</b><br>
+        <div class="column has-text-centered"><b>AV-CASS (Ours) - Music</b><br>
           <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/sL-9Khv7wa4_start_41.jpg">
             <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/sL-9Khv7wa4_start_41/music.mp4" type="video/mp4">
           </video>
@@ -499,17 +507,17 @@
       </div>
 
       <div class="columns">
-        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+        <div class="column has-text-centered"><b>AV-CASS (Ours) - Speech</b><br>
           <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/2LqzF5WauAw_start_31.jpg">
             <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/2LqzF5WauAw_start_31/speech.mp4" type="video/mp4">
           </video>
         </div>
-        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+        <div class="column has-text-centered"><b>AV-CASS (Ours) - SFX</b><br>
           <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/2LqzF5WauAw_start_31.jpg">
             <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/2LqzF5WauAw_start_31/sfx.mp4" type="video/mp4">
           </video>
         </div>
-        <div class="column has-text-centered"><b>Ours - Music</b><br>
+        <div class="column has-text-centered"><b>AV-CASS (Ours) - Music</b><br>
           <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/2LqzF5WauAw_start_31.jpg">
             <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/2LqzF5WauAw_start_31/music.mp4" type="video/mp4">
           </video>
@@ -565,17 +573,17 @@
       </div>
 
       <div class="columns">
-        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+        <div class="column has-text-centered"><b>AV-CASS (Ours) - Speech</b><br>
           <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/elpUGB9Ap1Y_start_33.jpg">
             <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/elpUGB9Ap1Y_start_33/speech.mp4" type="video/mp4">
           </video>
         </div>
-        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+        <div class="column has-text-centered"><b>AV-CASS (Ours) - SFX</b><br>
           <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/elpUGB9Ap1Y_start_33.jpg">
             <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/elpUGB9Ap1Y_start_33/sfx.mp4" type="video/mp4">
           </video>
         </div>
-        <div class="column has-text-centered"><b>Ours - Music</b><br>
+        <div class="column has-text-centered"><b>AV-CASS (Ours) - Music</b><br>
           <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/elpUGB9Ap1Y_start_33.jpg">
             <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/elpUGB9Ap1Y_start_33/music.mp4" type="video/mp4">
           </video>
@@ -633,17 +641,17 @@
       </div>
 
       <div class="columns">
-        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+        <div class="column has-text-centered"><b>AV-CASS (Ours) - Speech</b><br>
           <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/htHKbsUKDDw_start_58.jpg">
             <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/htHKbsUKDDw_start_58/speech.mp4" type="video/mp4">
           </video>
         </div>
-        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+        <div class="column has-text-centered"><b>AV-CASS (Ours) - SFX</b><br>
           <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/htHKbsUKDDw_start_58.jpg">
             <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/htHKbsUKDDw_start_58/sfx.mp4" type="video/mp4">
           </video>
         </div>
-        <div class="column has-text-centered"><b>Ours - Music</b><br>
+        <div class="column has-text-centered"><b>AV-CASS (Ours) - Music</b><br>
           <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/htHKbsUKDDw_start_58.jpg">
             <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/htHKbsUKDDw_start_58/music.mp4" type="video/mp4">
           </video>
@@ -700,17 +708,17 @@
       </div>
 
       <div class="columns">
-        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+        <div class="column has-text-centered"><b>AV-CASS (Ours) - Speech</b><br>
           <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/SxJcAxTBKOk_start_0.jpg">
             <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/SxJcAxTBKOk_start_0/speech.mp4" type="video/mp4">
           </video>
         </div>
-        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+        <div class="column has-text-centered"><b>AV-CASS (Ours) - SFX</b><br>
           <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/SxJcAxTBKOk_start_0.jpg">
             <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/SxJcAxTBKOk_start_0/sfx.mp4" type="video/mp4">
           </video>
         </div>
-        <div class="column has-text-centered"><b>Ours - Music</b><br>
+        <div class="column has-text-centered"><b>AV-CASS (Ours) - Music</b><br>
           <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/SxJcAxTBKOk_start_0.jpg">
             <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/SxJcAxTBKOk_start_0/music.mp4" type="video/mp4">
           </video>
@@ -768,17 +776,17 @@
       </div>
 
       <div class="columns">
-        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+        <div class="column has-text-centered"><b>AV-CASS (Ours) - Speech</b><br>
           <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/tlSscKeO9Cc_start_24.jpg">
             <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/tlSscKeO9Cc_start_24/speech.mp4" type="video/mp4">
           </video>
         </div>
-        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+        <div class="column has-text-centered"><b>AV-CASS (Ours) - SFX</b><br>
           <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/tlSscKeO9Cc_start_24.jpg">
             <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/tlSscKeO9Cc_start_24/sfx.mp4" type="video/mp4">
           </video>
         </div>
-        <div class="column has-text-centered"><b>Ours - Music</b><br>
+        <div class="column has-text-centered"><b>AV-CASS (Ours) - Music</b><br>
           <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/tlSscKeO9Cc_start_24.jpg">
             <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/tlSscKeO9Cc_start_24/music.mp4" type="video/mp4">
           </video>
@@ -834,17 +842,17 @@
       </div>
 
       <div class="columns">
-        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+        <div class="column has-text-centered"><b>AV-CASS (Ours) - Speech</b><br>
           <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/oIlpo2mj_qk_start_89.jpg">
             <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/oIlpo2mj_qk_start_89/speech.mp4" type="video/mp4">
           </video>
         </div>
-        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+        <div class="column has-text-centered"><b>AV-CASS(Ours) - SFX</b><br>
           <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/oIlpo2mj_qk_start_89.jpg">
             <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/oIlpo2mj_qk_start_89/sfx.mp4" type="video/mp4">
           </video>
         </div>
-        <div class="column has-text-centered"><b>Ours - Music</b><br>
+        <div class="column has-text-centered"><b>AV-CASS(Ours) - Music</b><br>
           <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/oIlpo2mj_qk_start_89.jpg">
             <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/oIlpo2mj_qk_start_89/music.mp4" type="video/mp4">
           </video>
@@ -901,17 +909,17 @@
       </div>
 
       <div class="columns">
-        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+        <div class="column has-text-centered"><b>AV-CASS (Ours) - Speech</b><br>
           <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/GbZZ2TDY5dA_start_26.jpg">
             <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/GbZZ2TDY5dA_start_26/speech.mp4" type="video/mp4">
           </video>
         </div>
-        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+        <div class="column has-text-centered"><b>AV-CASS(Ours) - SFX</b><br>
           <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/GbZZ2TDY5dA_start_26.jpg">
             <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/GbZZ2TDY5dA_start_26/sfx.mp4" type="video/mp4">
           </video>
         </div>
-        <div class="column has-text-centered"><b>Ours - Music</b><br>
+        <div class="column has-text-centered"><b>AV-CASS(Ours) - Music</b><br>
           <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/GbZZ2TDY5dA_start_26.jpg">
             <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/GbZZ2TDY5dA_start_26/music.mp4" type="video/mp4">
           </video>
@@ -968,17 +976,17 @@
       </div>
 
       <div class="columns">
-        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+        <div class="column has-text-centered"><b>AV-CASS (Ours) - Speech</b><br>
           <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/DYAdSce8Rd0_start_90.jpg">
             <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/DYAdSce8Rd0_start_90/speech.mp4" type="video/mp4">
           </video>
         </div>
-        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+        <div class="column has-text-centered"><b>AV-CASS(Ours) - SFX</b><br>
           <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/DYAdSce8Rd0_start_90.jpg">
             <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/DYAdSce8Rd0_start_90/sfx.mp4" type="video/mp4">
           </video>
         </div>
-        <div class="column has-text-centered"><b>Ours - Music</b><br>
+        <div class="column has-text-centered"><b>AV-CASS(Ours) - Music</b><br>
           <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/DYAdSce8Rd0_start_90.jpg">
             <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/DYAdSce8Rd0_start_90/music.mp4" type="video/mp4">
           </video>
@@ -1034,17 +1042,17 @@
       </div>
 
       <div class="columns">
-        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+        <div class="column has-text-centered"><b>AV-CASS (Ours) - Speech</b><br>
           <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/fq5zU9T_Hl4_start_29.jpg">
             <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/fq5zU9T_Hl4_start_29/speech.mp4" type="video/mp4">
           </video>
         </div>
-        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+        <div class="column has-text-centered"><b>AV-CASS(Ours) - SFX</b><br>
           <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/fq5zU9T_Hl4_start_29.jpg">
             <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/fq5zU9T_Hl4_start_29/sfx.mp4" type="video/mp4">
           </video>
         </div>
-        <div class="column has-text-centered"><b>Ours - Music</b><br>
+        <div class="column has-text-centered"><b>AV-CASS(Ours) - Music</b><br>
           <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/fq5zU9T_Hl4_start_29.jpg">
             <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/fq5zU9T_Hl4_start_29/music.mp4" type="video/mp4">
           </video>
@@ -1101,17 +1109,17 @@
       </div>
 
       <div class="columns">
-        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+        <div class="column has-text-centered"><b>AV-CASS (Ours) - Speech</b><br>
           <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/4A_kmjtsJ7c_start_6.jpg">
             <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/4A_kmjtsJ7c_start_6/speech.mp4" type="video/mp4">
           </video>
         </div>
-        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+        <div class="column has-text-centered"><b>AV-CASS(Ours) - SFX</b><br>
           <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/4A_kmjtsJ7c_start_6.jpg">
             <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/4A_kmjtsJ7c_start_6/sfx.mp4" type="video/mp4">
           </video>
         </div>
-        <div class="column has-text-centered"><b>Ours - Music</b><br>
+        <div class="column has-text-centered"><b>AV-CASS (Ours) - Music</b><br>
           <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/4A_kmjtsJ7c_start_6.jpg">
             <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/4A_kmjtsJ7c_start_6/music.mp4" type="video/mp4">
           </video>
@@ -1168,17 +1176,17 @@
       </div>
 
       <div class="columns">
-        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+        <div class="column has-text-centered"><b>AV-CASS (Ours) - Speech</b><br>
           <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/otNh9bTjXWg_start_17.jpg">
             <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/otNh9bTjXWg_start_17/speech.mp4" type="video/mp4">
           </video>
         </div>
-        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+        <div class="column has-text-centered"><b>AV-CASS (Ours) - SFX</b><br>
           <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/otNh9bTjXWg_start_17.jpg">
             <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/otNh9bTjXWg_start_17/sfx.mp4" type="video/mp4">
           </video>
         </div>
-        <div class="column has-text-centered"><b>Ours - Music</b><br>
+        <div class="column has-text-centered"><b>AV-CASS (Ours) - Music</b><br>
           <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/otNh9bTjXWg_start_17.jpg">
             <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/otNh9bTjXWg_start_17/music.mp4" type="video/mp4">
           </video>
@@ -1236,17 +1244,17 @@
       </div>
 
       <div class="columns">
-        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+        <div class="column has-text-centered"><b>AV-CASS (Ours) - Speech</b><br>
           <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/ZKWndx83RwQ_start_32.jpg">
             <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/ZKWndx83RwQ_start_32/speech.mp4" type="video/mp4">
           </video>
         </div>
-        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+        <div class="column has-text-centered"><b>AV-CASS(Ours) - SFX</b><br>
           <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/ZKWndx83RwQ_start_32.jpg">
             <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/ZKWndx83RwQ_start_32/sfx.mp4" type="video/mp4">
           </video>
         </div>
-        <div class="column has-text-centered"><b>Ours - Music</b><br>
+        <div class="column has-text-centered"><b>AV-CASS(Ours) - Music</b><br>
           <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/ZKWndx83RwQ_start_32.jpg">
             <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/ZKWndx83RwQ_start_32/music.mp4" type="video/mp4">
           </video>
@@ -1303,17 +1311,17 @@
       </div>
 
       <div class="columns">
-        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+        <div class="column has-text-centered"><b>AV-CASS (Ours) - Speech</b><br>
           <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/ZKWndx83RwQ_start_100.jpg">
             <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/ZKWndx83RwQ_start_100/speech.mp4" type="video/mp4">
           </video>
         </div>
-        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+        <div class="column has-text-centered"><b>AV-CASS(Ours) - SFX</b><br>
           <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/ZKWndx83RwQ_start_100.jpg">
             <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/ZKWndx83RwQ_start_100/sfx.mp4" type="video/mp4">
           </video>
         </div>
-        <div class="column has-text-centered"><b>Ours - Music</b><br>
+        <div class="column has-text-centered"><b>AV-CASS(Ours) - Music</b><br>
           <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/ZKWndx83RwQ_start_100.jpg">
             <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/ZKWndx83RwQ_start_100/music.mp4" type="video/mp4">
           </video>
@@ -1371,17 +1379,17 @@
       </div>
 
       <div class="columns">
-        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+        <div class="column has-text-centered"><b>AV-CASS (Ours) - Speech</b><br>
           <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/RbIxYm3mKzI_start_42.jpg">
             <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/RbIxYm3mKzI_start_42/speech.mp4" type="video/mp4">
           </video>
         </div>
-        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+        <div class="column has-text-centered"><b>AV-CASS(Ours) - SFX</b><br>
           <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/RbIxYm3mKzI_start_42.jpg">
             <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/RbIxYm3mKzI_start_42/sfx.mp4" type="video/mp4">
           </video>
         </div>
-        <div class="column has-text-centered"><b>Ours - Music</b><br>
+        <div class="column has-text-centered"><b>AV-CASS(Ours) - Music</b><br>
           <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/RbIxYm3mKzI_start_42.jpg">
             <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/RbIxYm3mKzI_start_42/music.mp4" type="video/mp4">
           </video>
@@ -1437,17 +1445,17 @@
       </div>
 
       <div class="columns">
-        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+        <div class="column has-text-centered"><b>AV-CASS (Ours) - Speech</b><br>
           <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/O9ZJChzPn0U_start_75.jpg">
             <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/O9ZJChzPn0U_start_75/speech.mp4" type="video/mp4">
           </video>
         </div>
-        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+        <div class="column has-text-centered"><b>AV-CASS (Ours) - SFX</b><br>
           <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/O9ZJChzPn0U_start_75.jpg">
             <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/O9ZJChzPn0U_start_75/sfx.mp4" type="video/mp4">
           </video>
         </div>
-        <div class="column has-text-centered"><b>Ours - Music</b><br>
+        <div class="column has-text-centered"><b>AV-CASS (Ours) - Music</b><br>
           <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/O9ZJChzPn0U_start_75.jpg">
             <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/O9ZJChzPn0U_start_75/music.mp4" type="video/mp4">
           </video>
@@ -1504,17 +1512,17 @@
       </div>
 
       <div class="columns">
-        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+        <div class="column has-text-centered"><b>AV-CASS (Ours) - Speech</b><br>
           <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/O9ZJChzPn0U_start_96.jpg">
             <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/O9ZJChzPn0U_start_96/speech.mp4" type="video/mp4">
           </video>
         </div>
-        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+        <div class="column has-text-centered"><b>AV-CASS (Ours) - SFX</b><br>
           <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/O9ZJChzPn0U_start_96.jpg">
             <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/O9ZJChzPn0U_start_96/sfx.mp4" type="video/mp4">
           </video>
         </div>
-        <div class="column has-text-centered"><b>Ours - Music</b><br>
+        <div class="column has-text-centered"><b>AV-CASS (Ours) - Music</b><br>
           <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/O9ZJChzPn0U_start_96.jpg">
             <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/O9ZJChzPn0U_start_96/music.mp4" type="video/mp4">
           </video>
@@ -1571,17 +1579,17 @@
       </div>
 
       <div class="columns">
-        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+        <div class="column has-text-centered"><b>AV-CASS (Ours) - Speech</b><br>
           <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/ej3ioOneTy8_start_102.jpg">
             <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/ej3ioOneTy8_start_102/speech.mp4" type="video/mp4">
           </video>
         </div>
-        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+        <div class="column has-text-centered"><b>AV-CASS (Ours) - SFX</b><br>
           <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/ej3ioOneTy8_start_102.jpg">
             <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/ej3ioOneTy8_start_102/sfx.mp4" type="video/mp4">
           </video>
         </div>
-        <div class="column has-text-centered"><b>Ours - Music</b><br>
+        <div class="column has-text-centered"><b>AV-CASS (Ours) - Music</b><br>
           <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/ej3ioOneTy8_start_102.jpg">
             <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/ej3ioOneTy8_start_102/music.mp4" type="video/mp4">
           </video>
@@ -1642,17 +1650,17 @@
       </div>
 
       <div class="columns">
-        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+        <div class="column has-text-centered"><b>AV-CASS (Ours) - Speech</b><br>
           <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/0b-H8oQUs1A_start_50.jpg">
             <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/0b-H8oQUs1A_start_50/speech.mp4" type="video/mp4">
           </video>
         </div>
-        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+        <div class="column has-text-centered"><b>AV-CASS (Ours) - SFX</b><br>
           <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/0b-H8oQUs1A_start_50.jpg">
             <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/0b-H8oQUs1A_start_50/sfx.mp4" type="video/mp4">
           </video>
         </div>
-        <div class="column has-text-centered"><b>Ours - Music</b><br>
+        <div class="column has-text-centered"><b>AV-CASS (Ours) - Music</b><br>
           <video controls width="100%" preload="none" poster="static/images/thumbnails/videos/0b-H8oQUs1A_start_50.jpg">
             <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/videos/0b-H8oQUs1A_start_50/music.mp4" type="video/mp4">
           </video>
@@ -1709,17 +1717,17 @@
       </div>
 
       <div class="columns">
-        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+        <div class="column has-text-centered"><b>AV-CASS (Ours) - Speech</b><br>
           <video controls width="100%" preload="none" poster="static/images/thumbnails/2014/_pWW7Xmat6o_start_0.jpg">
             <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2014/_pWW7Xmat6o_start_0/speech.mp4" type="video/mp4">
           </video>
         </div>
-        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+        <div class="column has-text-centered"><b>AV-CASS (Ours) - SFX</b><br>
           <video controls width="100%" preload="none" poster="static/images/thumbnails/2014/_pWW7Xmat6o_start_0.jpg">
             <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2014/_pWW7Xmat6o_start_0/sfx.mp4" type="video/mp4">
           </video>
         </div>
-        <div class="column has-text-centered"><b>Ours - Music</b><br>
+        <div class="column has-text-centered"><b>AV-CASS (Ours) - Music</b><br>
           <video controls width="100%" preload="none" poster="static/images/thumbnails/2014/_pWW7Xmat6o_start_0.jpg">
             <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2014/_pWW7Xmat6o_start_0/music.mp4" type="video/mp4">
           </video>
@@ -1776,17 +1784,17 @@
       </div>
 
       <div class="columns">
-        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+        <div class="column has-text-centered"><b>AV-CASS (Ours) - Speech</b><br>
           <video controls width="100%" preload="none" poster="static/images/thumbnails/2014/2H7XknY3PMA_start_29.jpg">
             <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2014/2H7XknY3PMA_start_29/speech.mp4" type="video/mp4">
           </video>
         </div>
-        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+        <div class="column has-text-centered"><b>AV-CASS (Ours) - SFX</b><br>
           <video controls width="100%" preload="none" poster="static/images/thumbnails/2014/2H7XknY3PMA_start_29.jpg">
             <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2014/2H7XknY3PMA_start_29/sfx.mp4" type="video/mp4">
           </video>
         </div>
-        <div class="column has-text-centered"><b>Ours - Music</b><br>
+        <div class="column has-text-centered"><b>AV-CASS (Ours) - Music</b><br>
           <video controls width="100%" preload="none" poster="static/images/thumbnails/2014/2H7XknY3PMA_start_29.jpg">
             <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2014/2H7XknY3PMA_start_29/music.mp4" type="video/mp4">
           </video>
@@ -1843,17 +1851,17 @@
       </div>
 
       <div class="columns">
-        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+        <div class="column has-text-centered"><b>AV-CASS (Ours) - Speech</b><br>
           <video controls width="100%" preload="none" poster="static/images/thumbnails/2014/THFVJBcv7W4_start_11.jpg">
             <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2014/THFVJBcv7W4_start_11/speech.mp4" type="video/mp4">
           </video>
         </div>
-        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+        <div class="column has-text-centered"><b>AV-CASS (Ours) - SFX</b><br>
           <video controls width="100%" preload="none" poster="static/images/thumbnails/2014/THFVJBcv7W4_start_11.jpg">
             <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2014/THFVJBcv7W4_start_11/sfx.mp4" type="video/mp4">
           </video>
         </div>
-        <div class="column has-text-centered"><b>Ours - Music</b><br>
+        <div class="column has-text-centered"><b>AV-CASS (Ours) - Music</b><br>
           <video controls width="100%" preload="none" poster="static/images/thumbnails/2014/THFVJBcv7W4_start_11.jpg">
             <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2014/THFVJBcv7W4_start_11/music.mp4" type="video/mp4">
           </video>
@@ -1913,17 +1921,17 @@
       </div>
 
       <div class="columns">
-        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+        <div class="column has-text-centered"><b>AV-CASS (Ours) - Speech</b><br>
           <video controls width="100%" preload="none" poster="static/images/thumbnails/2014/O5s3Oj2cPgc_start_0.jpg">
             <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2014/O5s3Oj2cPgc_start_0/speech.mp4" type="video/mp4">
           </video>
         </div>
-        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+        <div class="column has-text-centered"><b>AV-CASS (Ours) - SFX</b><br>
           <video controls width="100%" preload="none" poster="static/images/thumbnails/2014/O5s3Oj2cPgc_start_0.jpg">
             <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2014/O5s3Oj2cPgc_start_0/sfx.mp4" type="video/mp4">
           </video>
         </div>
-        <div class="column has-text-centered"><b>Ours - Music</b><br>
+        <div class="column has-text-centered"><b>AV-CASS (Ours) - Music</b><br>
           <video controls width="100%" preload="none" poster="static/images/thumbnails/2014/O5s3Oj2cPgc_start_0.jpg">
             <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2014/O5s3Oj2cPgc_start_0/music.mp4" type="video/mp4">
           </video>
@@ -1981,17 +1989,17 @@
       </div>
 
       <div class="columns">
-        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+        <div class="column has-text-centered"><b>AV-CASS (Ours) - Speech</b><br>
           <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/6O_dprt5rts_start_0.jpg">
             <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/6O_dprt5rts_start_0/speech.mp4" type="video/mp4">
           </video>
         </div>
-        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+        <div class="column has-text-centered"><b>AV-CASS (Ours) - SFX</b><br>
           <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/6O_dprt5rts_start_0.jpg">
             <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/6O_dprt5rts_start_0/sfx.mp4" type="video/mp4">
           </video>
         </div>
-        <div class="column has-text-centered"><b>Ours - Music</b><br>
+        <div class="column has-text-centered"><b>AV-CASS (Ours) - Music</b><br>
           <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/6O_dprt5rts_start_0.jpg">
             <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/6O_dprt5rts_start_0/music.mp4" type="video/mp4">
           </video>
@@ -2050,17 +2058,17 @@
       </div>
 
       <div class="columns">
-        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+        <div class="column has-text-centered"><b>AV-CASS (Ours) - Speech</b><br>
           <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/CLxHRE-Knmc_start_0.jpg">
             <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/CLxHRE-Knmc_start_0/speech.mp4" type="video/mp4">
           </video>
         </div>
-        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+        <div class="column has-text-centered"><b>AV-CASS (Ours) - SFX</b><br>
           <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/CLxHRE-Knmc_start_0.jpg">
             <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/CLxHRE-Knmc_start_0/sfx.mp4" type="video/mp4">
           </video>
         </div>
-        <div class="column has-text-centered"><b>Ours - Music</b><br>
+        <div class="column has-text-centered"><b>AV-CASS (Ours) - Music</b><br>
           <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/CLxHRE-Knmc_start_0.jpg">
             <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/CLxHRE-Knmc_start_0/music.mp4" type="video/mp4">
           </video>
@@ -2120,17 +2128,17 @@
       </div>
 
       <div class="columns">
-        <div class="column has-text-centered"><b>Ours - Speech</b><br>
+        <div class="column has-text-centered"><b>AV-CASS (Ours) - Speech</b><br>
           <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/NFj82X1Fdh4_start_9.jpg">
             <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/NFj82X1Fdh4_start_9/speech.mp4" type="video/mp4">
           </video>
         </div>
-        <div class="column has-text-centered"><b>Ours - SFX</b><br>
+        <div class="column has-text-centered"><b>AV-CASS (Ours) - SFX</b><br>
           <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/NFj82X1Fdh4_start_9.jpg">
             <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/NFj82X1Fdh4_start_9/sfx.mp4" type="video/mp4">
           </video>
         </div>
-        <div class="column has-text-centered"><b>Ours - Music</b><br>
+        <div class="column has-text-centered"><b>AV-CASS (Ours) - Music</b><br>
           <video controls width="100%" preload="none" poster="static/images/thumbnails/2018/NFj82X1Fdh4_start_9.jpg">
             <source src="static/cvpr_videos/AVCASS/AV-cavp_ft20k_attHeadDim64_128/2018/NFj82X1Fdh4_start_9/music.mp4" type="video/mp4">
           </video>
@@ -2176,14 +2184,14 @@
     </div>
 
     <div id="comparison-davis-flow" class="results-panel is-hidden" style="display: none;">
-      <div class="content has-text-justified">
+      <!-- <div class="content has-text-justified">
         <h3 class="title is-5">Loading Notice</h3>
 
         <div class="notification is-warning">
           ⚠️ <strong>Please click the video to load and play.</strong>
           The video length shows as "0:00" because the video is not loaded yet (preload is off). This does NOT mean the video is broken or missing.
         </div>
-      </div>
+      </div> -->
       <div id="davis-flow-content">
         <div class="notification is-info is-light">Loading DAVIS-Flow comparison blocks...</div>
       </div>
@@ -2213,12 +2221,6 @@
     <h2 class="title is-4">References</h2>
     <ol>
       <li>
-        M. Bain, A. Nagrani, A. Brown, & A. Zisserman. 
-        <a href="https://openaccess.thecvf.com/content/ACCV2020/papers/Bain_Condensed_Movies_Story_Based_Retrieval_with_Contextual_Embeddings_ACCV_2020_paper.pdf" target="_blank">
-        Condensed Movies: Story Based Retrieval with Contextual Embeddings</a>. 
-        <i>Asian Conference on Computer Vision (ACCV), 2020.</i>
-      </li>
-      <li>
         K. N. Watcharasupat et al. 
         <a href="https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=10342812" target="_blank">
         A Generalized Bandsplit Neural Network for Cinematic Audio Source Separation</a>. 
@@ -2229,6 +2231,12 @@
         <a href="https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=9746005" target="_blank">
         The Cocktail Fork Problem: Three-Stem Audio Separation for Real-World Soundtracks</a>. 
         <i>ICASSP, 2022.</i>
+      </li>
+      <li>
+        C. Huang, S. Liang, Y. Tian, A. Kumar, C. Xu.
+        <a href="https://arxiv.org/abs/2403.10134" target="_blank">
+          High-Quality Sound Separation Across Diverse Categories via Visually-Guided Generative Modeling</a>. 
+        <i>IJCV, 2025.</i>
       </li>
     </ol>
   </div>
