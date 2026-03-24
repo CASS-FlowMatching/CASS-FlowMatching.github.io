@@ -164,16 +164,31 @@
 <!-- End paper abstract -->
 
 <!-- Interactive mixer demos -->
-<section class="section">
+<section class="section mixer-demos-section">
   <div class="container is-max-desktop">
     <div class="columns is-centered">
-      <div class="column is-four-fifths has-text-centered">
+      <div class="column is-four-fifths has-text-centered mixer-demos-block">
         <h2 class="title is-3">Interactive Mixer Demos</h2>
         <p class="mb-4">Explore the audio mixer demos for each sample:</p>
-        <div class="buttons is-centered">
-          <a href="audio_mixer_demo/index_ironman.html" class="button is-link is-light">Ironman</a>
-          <a href="audio_mixer_demo/index_spiderman.html" class="button is-link is-light">Spiderman</a>
-          <a href="audio_mixer_demo/index_flextape.html" class="button is-link is-light">Flextape</a>
+        <div class="columns is-variable is-4 mixer-preview-grid">
+          <div class="column">
+            <a href="audio_mixer_demo/index_ironman.html" class="mixer-preview-card">
+              <img src="static/images/thumbnails/mixer_demos/ironman.jpg" alt="Ironman mixer demo thumbnail">
+              <span class="mixer-preview-title">Ironman</span>
+            </a>
+          </div>
+          <div class="column">
+            <a href="audio_mixer_demo/index_spiderman.html" class="mixer-preview-card">
+              <img src="static/images/thumbnails/mixer_demos/spiderman.jpg" alt="Spiderman mixer demo thumbnail">
+              <span class="mixer-preview-title">Spiderman</span>
+            </a>
+          </div>
+          <div class="column">
+            <a href="audio_mixer_demo/index_flextape.html" class="mixer-preview-card">
+              <img src="static/images/thumbnails/mixer_demos/flextape.jpg" alt="Flextape mixer demo thumbnail">
+              <span class="mixer-preview-title">Flextape</span>
+            </a>
+          </div>
         </div>
       </div>
     </div>
@@ -189,12 +204,12 @@
 <section class="section hero">
   <div class="container is-max-desktop">
     <h2 class="title is-3 has-text-centered">Separation Results</h2>
-    <div class="buttons is-centered mb-4">
+    <div class="buttons is-centered mb-4 comparison-toggle-bar">
       <button id="toggle-cass-models" class="button is-link" type="button">Comparison with CASS models</button>
       <button id="toggle-davis-flow" class="button is-link is-light" type="button">Comparison with DAVIS-Flow</button>
     </div>
 
-    <div id="comparison-cass-models">
+    <div id="comparison-cass-models" class="results-panel">
     <div class="content has-text-justified">
       <h3 class="title is-5">Loading Notice</h3>
 
@@ -2160,7 +2175,7 @@
     </div>
     </div>
 
-    <div id="comparison-davis-flow" style="display: none;">
+    <div id="comparison-davis-flow" class="results-panel is-hidden" style="display: none;">
       <div class="content has-text-justified">
         <h3 class="title is-5">Loading Notice</h3>
 
@@ -2228,7 +2243,7 @@
 
           <p>
             This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a> which was adopted from the <a href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.
-            You are free to borrow the source code of this website, we just ask that you link back to this page in the footer. <br> This website is licensed under a <a rel="license"  href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative
+            This website is licensed under a <a rel="license"  href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative
             Commons Attribution-ShareAlike 4.0 International License</a>.
           </p>
 
@@ -2255,6 +2270,7 @@
 
       function setActive(button, isActive) {
         button.classList.toggle("is-light", !isActive);
+        button.setAttribute("aria-pressed", isActive ? "true" : "false");
       }
 
       async function loadDavisBlocksOnce() {
@@ -2290,19 +2306,26 @@
       }
 
       cassButton.addEventListener("click", () => {
+        cassSection.classList.remove("is-hidden");
         cassSection.style.display = "";
+        davisSection.classList.add("is-hidden");
         davisSection.style.display = "none";
         setActive(cassButton, true);
         setActive(davisButton, false);
       });
 
       davisButton.addEventListener("click", async () => {
+        cassSection.classList.add("is-hidden");
         cassSection.style.display = "none";
+        davisSection.classList.remove("is-hidden");
         davisSection.style.display = "";
         setActive(cassButton, false);
         setActive(davisButton, true);
         await loadDavisBlocksOnce();
       });
+
+      setActive(cassButton, true);
+      setActive(davisButton, false);
     })();
   </script>
 
