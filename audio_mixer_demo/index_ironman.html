@@ -211,25 +211,100 @@
             audioCtx.createGain(),
             audioCtx.createGain()
         ];
-        
-        function setupAudio(audio, gainNode) {
-            const source = audioCtx.createMediaElementSource(audio);
-            source.connect(gainNode).connect(audioCtx.destination);
+        const stemAudios = [audio1, audio2, audio3];
+        let audioGraphReady = false;
+        let syncRafId = null;
+
+        function setupAudioGraphOnce() {
+            if (audioGraphReady) return;
+            stemAudios.forEach((audio, index) => {
+                const source = audioCtx.createMediaElementSource(audio);
+                source.connect(gainNodes[index]).connect(audioCtx.destination);
+            });
+            audioGraphReady = true;
         }
-        
-        function startMedia() {
-            if (!mediaStarted) {
-                audioCtx.resume().then(() => {
-                    [audio1, audio2, audio3].forEach((audio, index) => {
-                        setupAudio(audio, gainNodes[index]);
-                        audio.play();
-                    });
-                    video.play();
-                    mediaStarted = true;
-                    drawTriangle(); // Redraw to remove "Click to Start" text
-                });
+
+        /** Keep stem tracks locked to the video timeline (video is master clock). */
+        function syncAudiosToVideo() {
+            const t = video.currentTime;
+            if (!Number.isFinite(t)) return;
+            stemAudios.forEach((a) => {
+                if (Math.abs(a.currentTime - t) > 0.08) {
+                    try {
+                        a.currentTime = t;
+                    } catch (e) {
+                        /* ignore seek errors during load */
+                    }
+                }
+                if (a.playbackRate !== video.playbackRate) {
+                    a.playbackRate = video.playbackRate;
+                }
+            });
+        }
+
+        function stopSyncLoop() {
+            if (syncRafId != null) {
+                cancelAnimationFrame(syncRafId);
+                syncRafId = null;
             }
         }
+
+        function syncLoop() {
+            if (!mediaStarted) return;
+            syncAudiosToVideo();
+            syncRafId = requestAnimationFrame(syncLoop);
+        }
+
+        function startMedia() {
+            if (mediaStarted) return;
+            audioCtx.resume().then(async () => {
+                setupAudioGraphOnce();
+                try {
+                    video.currentTime = 0;
+                } catch (e) {}
+                stemAudios.forEach((a) => {
+                    try {
+                        a.currentTime = 0;
+                    } catch (e) {}
+                });
+                await Promise.all([
+                    video.play(),
+                    audio1.play(),
+                    audio2.play(),
+                    audio3.play()
+                ]);
+                syncAudiosToVideo();
+                mediaStarted = true;
+                stopSyncLoop();
+                syncRafId = requestAnimationFrame(syncLoop);
+                drawTriangle();
+            });
+        }
+
+        video.addEventListener("pause", () => {
+            stemAudios.forEach((a) => {
+                if (!a.paused) a.pause();
+            });
+            stopSyncLoop();
+        });
+
+        video.addEventListener("play", () => {
+            if (!mediaStarted) return;
+            stemAudios.forEach((a) => {
+                a.play().catch(() => {});
+            });
+            syncAudiosToVideo();
+            stopSyncLoop();
+            syncRafId = requestAnimationFrame(syncLoop);
+        });
+
+        video.addEventListener("seeking", () => {
+            if (mediaStarted) syncAudiosToVideo();
+        });
+
+        video.addEventListener("seeked", () => {
+            if (mediaStarted) syncAudiosToVideo();
+        });
         
         canvas.addEventListener("click", startMedia);
         
